@@ -1,0 +1,77 @@
+/* === Dashboard de Reservas === */
+
+/* Contenedor principal */
+.dashboard-container {
+  padding: 20px;
+}
+
+/* KPIs */
+.icon-kpi {
+  font-size: 2rem;
+  color: var(--color-aqua);
+  margin-bottom: 0.5rem;
+}
+.dashboard-container .card h6 {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.dashboard-container .card h3 {
+  font-weight: bold;
+  color: var(--color-primario);
+}
+
+/* Filtros */
+.dashboard-container form .form-control,
+.dashboard-container form .form-select {
+  border-radius: 6px;
+}
+.btn-primario {
+  background-color: var(--color-primario);
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+.btn-primario:hover {
+  background-color: var(--color-secundario);
+}
+
+/* Tabla parcial */
+#tabla-reservas table {
+  font-size: 0.95rem;
+}
+#tabla-reservas th {
+  background-color: var(--color-primario);
+  color: #fff;
+  text-align: center;
+}
+#tabla-reservas tr:hover {
+  background-color: #f1f8ff;
+}
+
+/* Gráficas */
+
+.grafica-container {
+  height: 400px;
+  min-height: 300px;
+  position: relative;
+}
+.grafica-container h6 {
+  font-weight: bold;
+  color: var(--color-primario);
+  margin-bottom: 1rem;
+}
+
+.ultima-actualizacion {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.ultima-actualizacion i {
+  color: var(--color-primario); /* morado institucional */
+}
+
+

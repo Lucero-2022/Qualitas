@@ -1,0 +1,36 @@
+@model Qualitas.Models.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewData["Title"] = "Acceso al Sistema";
+}
+
+<div class="left-panel">
+    <h1 class="display-6 fw-bold">Bienvenido al portal</h1>
+    <p class="mt-3">Somos más que una plataforma que gestiona lo mejor para lograr lo mejor de los agente.</p>
+</div>
+
+<div class="right-panel">
+    <div class="card shadow-sm p-4 rounded-4" style="width: 100%; max-width: 400px;">
+        <h4 class="text-center mb-4 fw-bold">Acceso al Sistema</h4>
+
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label asp-for="IDAgente" class="form-label">Clave Agente</label>
+                <input asp-for="IDAgente" class="form-control" placeholder="Ingresa tu clave" />
+                <span asp-validation-for="IDAgente" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Contraseña" class="form-label">Contraseña</label>
+                <input asp-for="Contraseña" class="form-control" type="password" placeholder="••••••••" />
+                <span asp-validation-for="Contraseña" class="text-danger small"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+
+            <div class="text-center mt-3">
+                <a href="#" class="text-decoration-none small">¿Olvidaste tu contraseña? Recupérala</a>
+            </div>
+        </form>
+    </div>
+</div>

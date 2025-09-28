@@ -1,0 +1,225 @@
+@model Qualitas.Models.DTOs.ReservaDTOs
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Reservas.css" />
+}
+
+<p class="ultima-actualizacion text-start">
+    <span class="badge bg-light text-dark shadow-sm px-3 py-2">
+        <i class=" bi-clock-history me-2"></i>
+        Última actualización: @Model.UltimaActualizacion
+    </span>
+</p>
+
+
+
+<div class="dashboard-container">
+
+    <!-- KPIs -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-clipboard-data icon-kpi"></i>
+                    <h6>Total Reservas</h6>
+                    <h3>@Model.TotalReservas</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-cash-stack icon-kpi"></i>
+                    <h6>Suma Ajustes</h6>
+                    <h3>@Model.SumaAjustes</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-graph-up icon-kpi"></i>
+                    <h6>Máximo Hoy</h6>
+                    <h3>@Model.MaximoHoy</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-calendar-check icon-kpi"></i>
+                    <h6>Suma Mes Actual</h6>
+                    <h3>@Model.SumaMesActual</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="get" asp-action="Reservas" class="row g-2">
+                <div class="col-md-3">
+                    <input type="date" name="fecha" value="@Model.FechaFiltro" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="busqueda" value="@Model.Busqueda" placeholder="Buscar póliza o agente"
+                        class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <select name="oficina" class="form-select">
+                        <option value="">Todas las oficinas</option>
+                        @foreach (var oficina in Model.Oficinas)
+                        {
+                            <option value="@oficina.Oficina" selected="@(Model.Oficina == oficina.Oficina)">
+                                @oficina.Oficina
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primario w-100">Filtrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div id="tabla-reservas">
+                @await Html.PartialAsync("_TablaReservas", Model)
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráficas -->
+    <div class="row mt-4 graficas-row">
+        <div class="col-md-6 d-flex">
+            <div class="card shadow-sm flex-fill">
+                <div class="card-body grafica-container">
+                    <h6 class="text-center">Coberturas</h6>
+                    <canvas id="chartCoberturas"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 d-flex">
+            <div class="card shadow-sm flex-fill">
+                <div class="card-body grafica-container">
+                    <h6 class="text-center">Oficinas</h6>
+                    <canvas id="chartOficinas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        let charts = {};
+
+        function renderChart(canvasId, type, labels, values) {
+            const colors = getChartColors();
+            if (charts[canvasId]) charts[canvasId].destroy();
+
+            const ctx = document.getElementById(canvasId).getContext("2d");
+            // 🔥 Forzar nitidez en pantallas retina
+            const ratio = window.devicePixelRatio || 1;
+            ctx.canvas.width = ctx.canvas.offsetWidth * ratio;
+            ctx.canvas.height = ctx.canvas.offsetHeight * ratio;
+            ctx.scale(ratio, ratio);
+
+            charts[canvasId] = new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: type === "bar" ? "Ajuste Total" : "Coberturas",
+                        data: values,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: "var(--color-primario)", // 🔥 uniforme
+                                font: { size: 13, weight: "bold" }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    let value = context.raw;
+                                    return `${context.label}: $${value.toLocaleString("es-MX")}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: type === "bar" ? {
+                        x: { ticks: { color: "var(--color-primario)" } },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: "var(--color-primario)",
+                                callback: function (value) {
+                                    return "$" + value.toLocaleString("es-MX");
+                                }
+                            }
+                        }
+                    } : {}
+                }
+            });
+        }
+
+        function getChartColors() {
+            const styles = getComputedStyle(document.documentElement);
+            return [
+                styles.getPropertyValue('--chart-color-1').trim(),
+                styles.getPropertyValue('--chart-color-2').trim(),
+                styles.getPropertyValue('--chart-color-3').trim(),
+                styles.getPropertyValue('--chart-color-4').trim(),
+                styles.getPropertyValue('--chart-color-5').trim(),
+                styles.getPropertyValue('--chart-color-6').trim(),
+                styles.getPropertyValue('--chart-color-7').trim(),
+                styles.getPropertyValue('--chart-color-8').trim()
+            ];
+        }
+
+        function cargarGraficas() {
+            $.get('@Url.Action("DatosGraficas", "Reserva")', {
+                fecha: '@Model.FechaFiltro',
+                busqueda: '@Model.Busqueda',
+                oficina: '@Model.Oficina'
+            }, function (data) {
+                renderChart("chartCoberturas", "pie",
+                    data.coberturas.map(c => c.cobertura),
+                    data.coberturas.map(c => c.sumaAjustes));
+
+                renderChart("chartOficinas", "bar",
+                    data.oficinas.map(o => o.oficina),
+                    data.oficinas.map(o => o.ajusteTotal));
+            });
+        }
+
+        // 🔄 Paginación AJAX (solo tabla)
+        $(document).on("click", ".pagination a", function (e) {
+            e.preventDefault();
+            var url = $(this).attr("href");
+
+            $.get(url, function (data) {
+                $("#tabla-reservas").html(data);
+            });
+
+            return false;
+        });
+
+        $(document).ready(cargarGraficas);
+    </script>
+}

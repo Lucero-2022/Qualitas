@@ -1,0 +1,105 @@
+/* === Tablas corporativas === */
+
+/* Encabezados centrados */
+.table.table-custom thead tr th {
+    background-color: var(--color-primario) !important;
+    color: #fff !important;
+    font-weight: bold;
+    text-align: center;
+    /* centramos encabezados */
+    vertical-align: middle;
+    border: none;
+}
+
+/* Celdas centradas */
+.table.table-custom td {
+    vertical-align: middle;
+    font-size: 0.95rem;
+    color: var(--color-texto);
+    text-align: center;
+    /* centramos datos */
+}
+
+
+/* Filas alternadas */
+.table.table-custom tbody tr:nth-child(even) {
+    background-color: #fafafa !important;
+    /* gris claro */
+}
+
+/* Hover elegante */
+.table.table-custom tbody tr:hover {
+    background-color: rgba(148, 27, 128, 0.08) !important;
+    /* morado institucional suave */
+    transition: background-color 0.2s ease;
+}
+
+
+/* Bordes suaves */
+
+.table.table-custom {
+  border-collapse: collapse; /* más seguro */
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+}
+
+
+/* Paginación */
+.pagination .page-link {
+    color: var(--color-primario);
+    border-radius: 6px;
+    margin: 0 2px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: 1rem;
+    /* o 20px si quieres más */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+    color: #fff;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #aaa;
+}
+
+/* Badges */
+.badge-success {
+    background-color: var(--color-acento);
+}
+
+.badge-danger {
+    background-color: var(--color-alerta);
+}
+
+.badge-secondary {
+    background-color: #90A4AE;
+}
+
+/* Tooltips */
+.tooltip-inner {
+    background-color: var(--color-primario);
+    color: #fff;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: var(--color-primario);
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: var(--color-primario);
+}
+
+/* Hover corporativo con máxima prioridad */
+.table.table-custom tbody>tr:hover>td,
+.table.table-custom tbody>tr:hover>th {
+    background-color: rgba(148, 27, 128, 0.08) !important;
+    /* morado institucional suave */
+    transition: background-color 0.2s ease;
+}
+

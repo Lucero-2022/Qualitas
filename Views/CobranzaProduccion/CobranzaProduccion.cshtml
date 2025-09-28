@@ -1,0 +1,156 @@
+@model Qualitas.Models.DTOs.CobranzaProduccionDTOs
+@{
+    ViewData["Title"] = "Dashboard Cobranza & Producción";
+}
+
+<div class="container mt-4">
+
+    <!-- 🔎 Filtros -->
+    <form method="get" asp-action="Index" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <label for="fechaDesde" class="form-label">Fecha Desde</label>
+            <input type="date" name="fechaDesde" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="fechaHasta" class="form-label">Fecha Hasta</label>
+            <input type="date" name="fechaHasta" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label for="oficina" class="form-label">Oficina</label>
+            <select name="oficina" class="form-select">
+                <select name="oficina" class="form-select">
+                    <option value="">Todas</option>
+                    @foreach (var oficina in Model.Oficinas)
+                    {
+                        <option value="@oficina">@oficina</option>
+                    }
+                </select>
+
+        </div>
+
+        <div class="col-md-3">
+            <label for="agente" class="form-label">Agente</label>
+            <select name="agente" class="form-select">
+                <option value="">Todos</option>
+                @foreach (var agente in Model.Agentes)
+                {
+                    <option value="@agente">@agente</option>
+                }
+            </select>
+        </div>
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary mt-3">Filtrar</button>
+        </div>
+    </form>
+
+    <!-- 📊 KPIs -->
+    <div class="row text-center mb-4">
+        <div class="col-md-3">
+            <div class="card bg-light shadow-sm">
+                <div class="card-body">
+                    <h5>Total Producción</h5>
+                    <h3>@Model.TotalProduccion.ToString("C")</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light shadow-sm">
+                <div class="card-body">
+                    <h5>Total Cobranza</h5>
+                    <h3>@Model.TotalCobranza.ToString("C")</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light shadow-sm">
+                <div class="card-body">
+                    <h5>Porcentaje</h5>
+                    <h3>@Model.PorcentajeCobranzaProduccion.ToString("P1")</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-light shadow-sm">
+                <div class="card-body">
+                    <h5>Última actualización</h5>
+                    <h6>@Model.FechaUltimaActualizacion.ToString("dd/MM/yyyy HH:mm")</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📋 Tabla Producción -->
+    <h4 class="mt-4">Producción</h4>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Tipo Póliza</th>
+                <th>Prima Neta</th>
+                <th>Oficina</th>
+                <th>Agente</th>
+                <th>Fecha Emisión</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Producciones)
+            {
+                <tr>
+                    <td>@p.TipoPoliza</td>
+                    <td>@p.Primaneta.ToString("C")</td>
+                    <td>@p.NombreOficina</td>
+                    <td>@p.NombreAgente</td>
+                    <td>@p.FechaEmision.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- 📋 Tabla Cobranza -->
+    <h4 class="mt-4">Cobranza</h4>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Tipo Póliza</th>
+                <th>Prima Neta</th>
+                <th>Oficina</th>
+                <th>Agente</th>
+                <th>Fecha Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model.Cobranzas)
+            {
+                <tr>
+                    <td>@c.TipoPoliza</td>
+                    <td>@c.Primaneta.ToString("C")</td>
+                    <td>@c.NombreOficina</td>
+                    <td>@c.NombreAgente</td>
+                    <td>@c.FechaPago.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- 📈 Gráfica (ejemplo con Chart.js) -->
+    <div class="mt-5">
+        <canvas id="chartProduccionCobranza"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('chartProduccionCobranza');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Producción', 'Cobranza'],
+                datasets: [{
+                    label: 'Montos',
+                    data: [@Model.TotalProduccion, @Model.TotalCobranza],
+                    backgroundColor: ['#007bff', '#28a745']
+                }]
+            }
+        });
+    </script>
+}
