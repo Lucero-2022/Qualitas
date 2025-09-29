@@ -1,50 +1,79 @@
+@{
+    ViewData["Title"] = "Tabla de Reservas";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Reservas.css" asp-append-version="true" />
+}
+
 @model Qualitas.Models.DTOs.ReservaDTOs
 
 <div class="table-responsive shadow-sm tabla-centrada amplia">
-    <table class="table table-custom align-middle">
+    <table class="table table-custom tabla-reservas">
         <thead>
             <tr>
                 <th>Fecha</th>
-                <th>Póliza</th>
-                <th>Agente</th>
-                <th>Oficina</th>
+                <th>Ejercicio</th>
                 <th>Cobertura</th>
+                <th>Nombre agente</th>
+                <th>Nombre del asegurado</th>
+                <th>Póliza</th>
+                <th>Oficina</th>
+                <th>Entidad</th>
                 <th class="text-end">Ajuste</th>
             </tr>
         </thead>
         <tbody>
-        @if (Model.Reservas != null && Model.Reservas.Any())
-        {
-            foreach (var item in Model.Reservas)
+            @if (Model.Reservas != null && Model.Reservas.Count > 0)
+            {
+                foreach (var item in Model.Reservas)
+                {
+                    <tr>
+                        <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Ejercicio</td>
+                        <td>@item.Cobertura</td>
+                        <td>@item.NombreAgente</td>
+                        <td>@item.NombreAsegurado</td>
+                        <td>@item.Poliza</td>
+                        <td>@item.NombreOficina</td>
+                        <td>@item.Entidad</td>
+                        <td class="text-end">@item.Ajuste.ToString("C")</td>
+                    </tr>
+                }
+            }
+            else
             {
                 <tr>
-                    <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
-                    <td>@item.Poliza</td>
-                    <td>@item.Agente</td>
-                    <td>@item.NombreOficina</td>
-                    <td>@item.Cobertura</td>
-                    <td class="text-end">@item.Ajuste.ToString("C")</td>
+                    <td colspan="6" class="text-center text-muted">No hay reservas disponibles</td>
                 </tr>
             }
-        }
-        else
-        {
-            <tr>
-                <td colspan="6" class="text-center text-muted">No hay reservas disponibles</td>
-            </tr>
-        }
         </tbody>
     </table>
 </div>
 
-<!-- Paginación -->
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const filas = document.querySelectorAll(".tabla-reservas tbody tr");
+
+            filas.forEach(fila => {
+                fila.addEventListener("click", function () {
+                    filas.forEach(f => f.classList.remove("activa")); // quitar clase de otras filas
+                    this.classList.add("activa"); // activar esta fila
+                });
+            });
+        });
+    </script>
+}
+
 @if (Model.TotalPaginas > 1)
 {
     <nav aria-label="Paginación de reservas">
         <ul class="pagination justify-content-center">
             <li class="page-item @(Model.PaginaActual == 1 ? "disabled" : "")">
                 <a class="page-link"
-                   href="@Url.Action("Reservas", new { page = Model.PaginaActual - 1, fecha = Model.FechaFiltro, busqueda = Model.Busqueda, oficina = Model.Oficina })">
+                    href="@Url.Action("Reservas", new { page = Model.PaginaActual - 1, fecha = Model.FechaFiltro, busqueda = Model.Busqueda, oficina = Model.Oficina })">
                     Anterior
                 </a>
             </li>
@@ -53,7 +82,7 @@
             {
                 <li class="page-item @(i == Model.PaginaActual ? "active" : "")">
                     <a class="page-link"
-                       href="@Url.Action("Reservas", new { page = i, fecha = Model.FechaFiltro, busqueda = Model.Busqueda, oficina = Model.Oficina })">
+                        href="@Url.Action("Reservas", new { page = i, fecha = Model.FechaFiltro, busqueda = Model.Busqueda, oficina = Model.Oficina })">
                         @i
                     </a>
                 </li>
@@ -61,7 +90,7 @@
 
             <li class="page-item @(Model.PaginaActual == Model.TotalPaginas ? "disabled" : "")">
                 <a class="page-link"
-                   href="@Url.Action("Reservas", new { page = Model.PaginaActual + 1, fecha = Model.FechaFiltro, busqueda = Model.Busqueda, oficina = Model.Oficina })">
+                    href="@Url.Action("Reservas", new { page = Model.PaginaActual + 1, fecha = Model.FechaFiltro, busqueda = Model.Busqueda, oficina = Model.Oficina })">
                     Siguiente
                 </a>
             </li>

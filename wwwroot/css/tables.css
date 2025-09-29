@@ -6,7 +6,6 @@
     color: #fff !important;
     font-weight: bold;
     text-align: center;
-    /* centramos encabezados */
     vertical-align: middle;
     border: none;
 }
@@ -17,89 +16,79 @@
     font-size: 0.95rem;
     color: var(--color-texto);
     text-align: center;
-    /* centramos datos */
+    height: 48px; /* 🔑 altura fija para evitar saltos entre páginas */
 }
-
 
 /* Filas alternadas */
 .table.table-custom tbody tr:nth-child(even) {
     background-color: #fafafa !important;
-    /* gris claro */
 }
 
-/* Hover elegante */
-.table.table-custom tbody tr:hover {
-    background-color: rgba(148, 27, 128, 0.08) !important;
-    /* morado institucional suave */
-    transition: background-color 0.2s ease;
-}
-
-
-/* Bordes suaves */
-
+/* Bordes y separación */
 .table.table-custom {
-  border-collapse: collapse; /* más seguro */
-  border-radius: 6px;
-  overflow: hidden;
-  width: 100%;
+    border-collapse: separate !important; /* 🔑 permite separación */
+    border-spacing: 0 6px;               /* 🔑 espacio entre filas */
+    border-radius: 6px;
+    width: 100%;
+    background-color: #fff;
 }
 
+/* Evitar que el contenedor corte la sombra */
+.table-responsive,
+.tabla-centrada,
+.amplia {
+    overflow: visible !important;
+}
 
-/* Paginación */
+/* === Hover corporativo minimalista (global) === */
+table.table.table-custom tbody tr:hover td {
+    background-color: #ecd9f3 !important; /* Morado muy suave */
+    color: #941B80 !important;            /* Texto morado corporativo */
+    border: none !important;              /* Sin bordes feos */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Fila activa (global, minimalista) */
+table.table.table-custom tbody tr.activa td {
+    background-color: #e0c6ed !important; /* Un poco más intenso */
+    color: #941B80 !important;
+    font-weight: 600;                     /* Diferencia sutil */
+    border: none !important;
+}
+
+/* === Paginación corporativa tipo pill === */
+.pagination {
+    min-height: 40px; /* 🔑 asegura que no se mueva el layout */
+    display: flex;
+    align-items: center;
+    gap: 6px; /* separación entre botones */
+}
+
+/* === Paginación corporativa flat === */
+.pagination {
+    min-height: 40px; /* mantiene el espacio estable */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* más aire entre links */
+}
+
 .pagination .page-link {
-    color: var(--color-primario);
-    border-radius: 6px;
-    margin: 0 2px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    margin-top: 1rem;
-    /* o 20px si quieres más */
+    color: #941B80 !important;
+    border: none !important;
+    background: none !important;
+    padding: 6px 10px;
+    font-weight: 500;
+    border-radius: 0 !important; /* sin bordes redondeados */
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.pagination .page-link:hover {
+    text-decoration: underline;
+    background: none !important;
 }
 
 .pagination .page-item.active .page-link {
-    background-color: var(--color-primario);
-    border-color: var(--color-primario);
-    color: #fff;
+    color: #941B80 !important;
+    font-weight: 700;
+    text-decoration: underline;
 }
-
-.pagination .page-item.disabled .page-link {
-    color: #aaa;
-}
-
-/* Badges */
-.badge-success {
-    background-color: var(--color-acento);
-}
-
-.badge-danger {
-    background-color: var(--color-alerta);
-}
-
-.badge-secondary {
-    background-color: #90A4AE;
-}
-
-/* Tooltips */
-.tooltip-inner {
-    background-color: var(--color-primario);
-    color: #fff;
-    font-size: 0.85rem;
-    padding: 6px 10px;
-    border-radius: 4px;
-}
-
-.tooltip.bs-tooltip-top .tooltip-arrow::before {
-    border-top-color: var(--color-primario);
-}
-
-.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
-    border-bottom-color: var(--color-primario);
-}
-
-/* Hover corporativo con máxima prioridad */
-.table.table-custom tbody>tr:hover>td,
-.table.table-custom tbody>tr:hover>th {
-    background-color: rgba(148, 27, 128, 0.08) !important;
-    /* morado institucional suave */
-    transition: background-color 0.2s ease;
-}
-

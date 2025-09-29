@@ -196,8 +196,6 @@ C:\Users\lucer\Qualitas\obj\Debug\net9.0\Qualitas.pdb
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\Qualitas.genruntimeconfig.cache
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\ref\Qualitas.dll
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\39a8xcgqsx-r6kzvyae3a.gz
-C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\2fdxjo4k1p-cm2lu7b6o8.gz
-C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\sf4x7pqnn8-090pv95v4c.gz
 C:\Users\lucer\Qualitas\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\tortm5cq56-37tfw0ft22.gz
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\bsnlckyie5-s35ty4nyc5.gz
@@ -205,3 +203,5 @@ C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\h3mvlb7s74-3l12cv44wv.gz
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\0801v7xsek-3l12cv44wv.gz
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\ovnejllzkk-70zjxig3w0.gz
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\gg7y5zl3wi-r6mbin7m5l.gz
+C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\2fdxjo4k1p-7t4oyyjp34.gz
+C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\sf4x7pqnn8-a8kwpnl3zb.gz
