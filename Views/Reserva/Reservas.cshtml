@@ -18,63 +18,88 @@
 <div class="dashboard-container">
 
     <!-- KPIs -->
+
     <div class="row mb-4">
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <i class="bi bi-clipboard-data icon-kpi"></i>
-                    <h6>Total Reservas</h6>
-                    <h3>@Model.TotalReservas</h3>
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-start">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1">Reservas Abiertas</h6>
+                            <h3 class="fw-bold text-primario mb-0">@Model.TotalReservas</h3>
+                        </div>
+                        <i class="bi bi-clipboard-data icon-kpi"></i>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <i class="bi bi-cash-stack icon-kpi"></i>
-                    <h6>Suma Ajustes</h6>
-                    <h3>@Model.SumaAjustes</h3>
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-start">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1">Total al ajuste</h6>
+                            <h3 class="fw-bold text-primario mb-0">@Model.SumaAjustes.ToString("C", new
+                                                                System.Globalization.CultureInfo("es-MX"))</h3>
+                        </div>
+                        <i class="bi bi-cash-stack icon-kpi"></i>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <i class="bi bi-graph-up icon-kpi"></i>
-                    <h6>Máximo Hoy</h6>
-                    <h3>@Model.MaximoHoy</h3>
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-start">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1">Máximo De Hoy</h6>
+                            <h3 class="fw-bold text-primario mb-0">@Model.MaximoHoy.ToString("C", new
+                                                                System.Globalization.CultureInfo("es-MX"))</h3>
+                        </div>
+                        <i class="bi bi-graph-up icon-kpi"></i>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <i class="bi bi-calendar-check icon-kpi"></i>
-                    <h6>Suma Mes Actual</h6>
-                    <h3>@Model.SumaMesActual</h3>
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-start">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1">Acumulado del mes</h6>
+                            <h3 class="fw-bold text-primario mb-0">@Model.SumaMesActual.ToString("C", new
+                                                                System.Globalization.CultureInfo("es-MX"))</h3>
+                        </div>
+                        <i class="bi bi-calendar-check icon-kpi"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+
     <!-- Filtros -->
+
     <div class="card shadow-sm mb-4">
         <div class="card-body">
-            <form method="get" asp-action="Reservas" class="row g-2">
-                <div class="col-md-3">
+            <form method="get" asp-action="Reservas" class="row g-1 align-items-end">
+                <div class="col-6 col-md-2">
                     <input type="date" name="fechaDesde" value="@Model.FechaDesde?.ToString("yyyy-MM-dd")"
-                        class="form-control" />
+                        class="form-control form-control-sm" />
                 </div>
-                <div class="col-md-3">
+                <div class="col-6 col-md-2">
                     <input type="date" name="fechaHasta" value="@Model.FechaHasta?.ToString("yyyy-MM-dd")"
-                        class="form-control" />
+                        class="form-control form-control-sm" />
                 </div>
-                <div class="col-md-3">
+                <div class="col-12 col-md-3">
                     <input type="text" name="busqueda" value="@Model.Busqueda" placeholder="Buscar póliza o agente"
-                        class="form-control" />
+                        class="form-control form-control-sm" />
                 </div>
-                <div class="col-md-3">
-                    <select name="oficina" class="form-select">
+                <div class="col-12 col-md-3">
+                    <select name="oficina" class="form-select form-select-sm">
                         <option value="">Todas las oficinas</option>
                         @foreach (var oficina in Model.Oficinas)
                         {
@@ -84,12 +109,18 @@
                         }
                     </select>
                 </div>
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-primario w-100">Filtrar</button>
+                <div class="col-12 col-md-2 d-flex gap-2">
+                    <button type="submit" class="btn btn-filtro btn-sm w-100">
+                        <i class="bi bi-search me-1"></i> Filtrar
+                    </button>
+                    <button type="button" class="btn btn-filtro btn-sm w-100" onclick="limpiarFiltros()">
+                        <i class="bi bi-x-circle me-1"></i> Limpiar
+                    </button>
                 </div>
             </form>
         </div>
     </div>
+
 
     <!-- Tabla -->
     <div class="card shadow-sm mb-4">
@@ -132,7 +163,9 @@
             if (charts[canvasId]) charts[canvasId].destroy();
 
             const ctx = document.getElementById(canvasId).getContext("2d");
+
             // 🔥 Forzar nitidez en pantallas retina
+            
             const ratio = window.devicePixelRatio || 1;
             ctx.canvas.width = ctx.canvas.offsetWidth * ratio;
             ctx.canvas.height = ctx.canvas.offsetHeight * ratio;
@@ -230,4 +263,11 @@
 
         $(document).ready(cargarGraficas);
     </script>
+
+    <script>
+        function limpiarFiltros() {
+            window.location.href = '@Url.Action("Reservas", "Reserva")';
+        }
+    </script>
+
 }

@@ -11,12 +11,14 @@
   color: var(--color-aqua);
   margin-bottom: 0.5rem;
 }
+
 .dashboard-container .card h6 {
   font-size: 0.85rem;
   color: var(--color-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
+
 .dashboard-container .card h3 {
   font-weight: bold;
   color: var(--color-primario);
@@ -27,21 +29,51 @@
 .dashboard-container form .form-select {
   border-radius: 6px;
 }
-.btn-primario {
-  background-color: var(--color-primario);
+
+/* Botón Filtrar */
+.btn-filtro {
+  background-color: #941B80;
+  /* morado institucional */
   color: #fff;
   font-weight: bold;
   border-radius: 6px;
+  padding: 4px 10px;
+  /* más delgado */
+  font-size: 0.8rem;
   transition: background-color 0.3s ease;
 }
-.btn-primario:hover {
-  background-color: var(--color-secundario);
+
+.btn-filtro:hover {
+  background-color: #0096AE;
+  /* verde institucional */
+  color: #fff;
 }
+
+
+
+.btn-limpiar {
+  background-color: #0096AE;
+  /* verde institucional */
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-limpiar:hover {
+  background-color: #941B80;
+  /* morado institucional */
+  color: #fff;
+}
+
 
 /* Tabla parcial */
 #tabla-reservas table {
   font-size: 0.95rem;
 }
+
 #tabla-reservas th {
   background-color: var(--color-primario);
   color: #fff;
@@ -49,18 +81,19 @@
 }
 
 /* Gráficas */
-
 .grafica-container {
   height: 400px;
   min-height: 300px;
   position: relative;
 }
+
 .grafica-container h6 {
   font-weight: bold;
   color: var(--color-primario);
   margin-bottom: 1rem;
 }
 
+/* Última actualización */
 .ultima-actualizacion {
   margin-top: 1.5rem;
   font-size: 0.85rem;
@@ -68,7 +101,40 @@
 }
 
 .ultima-actualizacion i {
-  color: var(--color-primario); /* morado institucional */
+  color: var(--color-primario);
 }
 
+.btn-filtro:hover i {
+  animation: girarIcono 0.4s ease-in-out;
+}
 
+@keyframes girarIcono {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.btn-filtro i {
+  display: inline-block;
+}
+.text-primario {
+  color: #941B80;
+}
+
+.border-primario {
+  border-color: #941B80 !important;
+}
+
+.icon-kpi {
+  font-size: 1.5rem;
+  color: #0096AE;
+}
+
+.text-primario {
+  color: #941B80;
+}

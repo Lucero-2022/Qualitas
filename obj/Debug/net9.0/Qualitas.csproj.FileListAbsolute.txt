@@ -128,7 +128,6 @@ C:\Users\lucer\Qualitas\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.r
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\scopedcss\bundle\Qualitas.styles.css
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\scopedcss\projectbundle\Qualitas.bundle.scp.css
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\ovnejllzkk-70zjxig3w0.gz
-C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\2fdxjo4k1p-7t4oyyjp34.gz
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\gg7y5zl3wi-r6mbin7m5l.gz
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\sf4x7pqnn8-azwoam42x9.gz
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\9rk3snz4ni-61n19gt1b8.gz
@@ -205,3 +204,5 @@ C:\Users\lucer\Qualitas\obj\Debug\net9.0\refint\Qualitas.dll
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\Qualitas.pdb
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\Qualitas.genruntimeconfig.cache
 C:\Users\lucer\Qualitas\obj\Debug\net9.0\ref\Qualitas.dll
+C:\Users\lucer\Qualitas\obj\Debug\net9.0\Qualitas.sourcelink.json
+C:\Users\lucer\Qualitas\obj\Debug\net9.0\compressed\2fdxjo4k1p-co43rd7sxe.gz
