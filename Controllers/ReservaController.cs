@@ -16,29 +16,88 @@ namespace Qualitas.Controllers
         public ReservaController(AppDbContext context) => _context = context;
 
         // Vista principal
-        public async Task<IActionResult> Reservas(string? busqueda, string? oficina, DateTime? fecha, int? page)
+        public async Task<IActionResult> Reservas(string? busqueda, string? oficina, DateTime? fechaDesde, DateTime? fechaHasta, int? page)
         {
             // 🔐 Validar sesión
             if (!TryGetSesion(out int usuarioId, out string idAgente, out string rol))
                 return RedirectToAction("Login", "Usuario");
 
-            var dia = await ObtenerFechaValidaAsync(_context, fecha);
-            var rows = await FiltrarReservas(usuarioId, idAgente, rol, dia, busqueda, oficina);
+            // Última fecha registrada en la tabla (global)
+            var ultimaFecha = await _context.Reservas
+                .OrderByDescending(r => r.Fecha)
+                .Select(r => r.Fecha)
+                .FirstOrDefaultAsync();
 
-            // KPIs
-            var totalReservas = rows.Count;
-            var sumaAjustes = rows.Sum(r => r.Ajuste);
-            var maximoHoy = rows.Count > 0 ? rows.Max(r => r.Ajuste) : 0m;
+            // Construir query base
+            var query = _context.Reservas.AsQueryable();
 
+            // Si no hay filtros → mostrar solo la última fecha registrada
+            if (!fechaDesde.HasValue && !fechaHasta.HasValue)
+            {
+                query = query.Where(r => r.Fecha == ultimaFecha);
+            }
+            else
+            {
+                // Si hay filtros → aplicar rango
+                if (fechaDesde.HasValue)
+                    query = query.Where(r => r.Fecha >= fechaDesde.Value);
+
+                if (fechaHasta.HasValue)
+                    query = query.Where(r => r.Fecha <= fechaHasta.Value);
+            }
+
+            // Filtro por rol
+            if (rol != "Admin")
+                query = query.Where(r => r.UsuarioId == usuarioId && r.IDAgente == idAgente);
+
+            // Filtro por búsqueda
+            if (!string.IsNullOrWhiteSpace(busqueda) && int.TryParse(busqueda, out int numero))
+                query = query.Where(r => r.Poliza == numero || r.Agente == numero);
+
+            // Filtro por oficina
+            if (!string.IsNullOrWhiteSpace(oficina))
+                query = query.Where(r => r.NombreOficina == oficina);
+
+            // Ejecutar query
+            var rows = await query.ToListAsync();
+
+            // ======================
+            // INICIO DE KPIs
+            // ======================
+            int totalReservas;
+            decimal sumaAjustes;
+            decimal maximoHoy;
+
+            if (!fechaDesde.HasValue && !fechaHasta.HasValue)
+            {
+                // KPIs con la última fecha global
+                var rowsUltimaFecha = await _context.Reservas
+                    .Where(r => r.Fecha == ultimaFecha)
+                    .ToListAsync();
+
+                totalReservas = rowsUltimaFecha.Count;
+                sumaAjustes = rowsUltimaFecha.Sum(r => r.Ajuste);
+                maximoHoy = rowsUltimaFecha.Count > 0 ? rowsUltimaFecha.Max(r => r.Ajuste) : 0m;
+            }
+            else
+            {
+                // KPIs con los registros filtrados
+                totalReservas = rows.Count;
+                sumaAjustes = rows.Sum(r => r.Ajuste);
+                maximoHoy = rows.Count > 0 ? rows.Max(r => r.Ajuste) : 0m;
+            }
+
+            // KPI del mes actual (basado en fecha del sistema)
             var mesActual = DateTime.Now.Month;
             var añoActual = DateTime.Now.Year;
 
             var sumaMesActual = await _context.Reservas
                 .Where(r => r.Fecha.Month == mesActual && r.Fecha.Year == añoActual)
-                .Where(r => rol == "Admin" || (r.UsuarioId == usuarioId && r.IDAgente == idAgente))
                 .SumAsync(r => r.Ajuste);
 
+            // ======================
             // Paginación
+            // ======================
             int pageSize = 10;
             int pageNumber = page ?? 1;
             var reservas = rows
@@ -47,12 +106,9 @@ namespace Qualitas.Controllers
                 .Take(pageSize)
                 .ToList();
 
-            var ultimaFecha = rows
-                .OrderByDescending(r => r.Fecha)
-                .Select(r => r.Fecha)
-                .FirstOrDefault();
-
-            // DTO
+            // ======================
+            // Construcción del modelo
+            // ======================
             var model = new ReservaDTOs
             {
                 Reservas = reservas,
@@ -62,7 +118,8 @@ namespace Qualitas.Controllers
                 SumaMesActual = sumaMesActual,
                 Coberturas = AgruparCoberturas(rows),
                 Oficinas = AgruparOficinas(rows),
-                FechaFiltro = dia.ToString("yyyy-MM-dd"),
+                FechaDesde = fechaDesde,
+                FechaHasta = fechaHasta,
                 Busqueda = busqueda ?? "",
                 Oficina = oficina ?? "",
                 UltimaActualizacion = ultimaFecha != default(DateTime)
@@ -80,23 +137,40 @@ namespace Qualitas.Controllers
             return View(model);
         }
 
-
         // Endpoint AJAX para gráficas
-
         [HttpGet]
-        public async Task<IActionResult> DatosGraficas(DateTime? fecha, string? busqueda, string? oficina)
+        public async Task<IActionResult> DatosGraficas(DateTime? fechaDesde, DateTime? fechaHasta, string? busqueda, string? oficina)
         {
             if (!TryGetSesion(out int usuarioId, out string idAgente, out string rol))
                 return Unauthorized();
 
-            var dia = await ObtenerFechaValidaAsync(_context, fecha);
-            var rows = await FiltrarReservas(usuarioId, idAgente, rol, dia, busqueda, oficina);
+            // Última fecha registrada en la tabla (global)
+            var ultimaFecha = await _context.Reservas
+                .OrderByDescending(r => r.Fecha)
+                .Select(r => r.Fecha)
+                .FirstOrDefaultAsync();
+
+            List<Reserva> rows;
+
+            if (!fechaDesde.HasValue && !fechaHasta.HasValue)
+            {
+                // Sin filtros → usar solo la última fecha global
+                rows = await _context.Reservas
+                    .Where(r => r.Fecha == ultimaFecha)
+                    .ToListAsync();
+            }
+            else
+            {
+                // Con filtros → usar helper con rango
+                rows = await FiltrarReservas(usuarioId, idAgente, rol, fechaDesde, fechaHasta, busqueda, oficina);
+            }
 
             var model = new ReservaDTOs
             {
                 Coberturas = AgruparCoberturas(rows),
                 Oficinas = AgruparOficinas(rows),
-                FechaFiltro = dia.ToString("yyyy-MM-dd"),
+                FechaDesde = fechaDesde,
+                FechaHasta = fechaHasta,
                 Busqueda = busqueda ?? "",
                 Oficina = oficina ?? ""
             };
@@ -104,14 +178,24 @@ namespace Qualitas.Controllers
             return Json(model);
         }
 
-
         #region Helpers privados
 
-        private async Task<List<Reserva>> FiltrarReservas(int usuarioId, string idAgente, string rol, DateTime fecha, string? busqueda, string? oficina)
+        private async Task<List<Reserva>> FiltrarReservas(
+            int usuarioId,
+            string idAgente,
+            string rol,
+            DateTime? fechaDesde,
+            DateTime? fechaHasta,
+            string? busqueda,
+            string? oficina)
         {
             var query = _context.Reservas.AsQueryable();
 
-            query = query.Where(r => r.Fecha == fecha);
+            if (fechaDesde.HasValue)
+                query = query.Where(r => r.Fecha >= fechaDesde.Value);
+
+            if (fechaHasta.HasValue)
+                query = query.Where(r => r.Fecha <= fechaHasta.Value);
 
             if (rol != "Admin")
                 query = query.Where(r => r.UsuarioId == usuarioId && r.IDAgente == idAgente);

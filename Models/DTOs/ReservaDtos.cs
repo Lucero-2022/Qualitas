@@ -17,7 +17,9 @@ namespace Qualitas.Models.DTOs
         public List<OficinaDTO> Oficinas { get; set; } = new();
 
         // Filtros activos
-        public string FechaFiltro { get; set; } = "";
+        public DateTime? FechaDesde { get; set; }
+        public DateTime? FechaHasta { get; set; }
+
         public string Busqueda { get; set; } = "";
         public string Oficina { get; set; } = "";
 

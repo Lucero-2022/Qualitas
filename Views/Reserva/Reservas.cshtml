@@ -62,7 +62,12 @@
         <div class="card-body">
             <form method="get" asp-action="Reservas" class="row g-2">
                 <div class="col-md-3">
-                    <input type="date" name="fecha" value="@Model.FechaFiltro" class="form-control" />
+                    <input type="date" name="fechaDesde" value="@Model.FechaDesde?.ToString("yyyy-MM-dd")"
+                        class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <input type="date" name="fechaHasta" value="@Model.FechaHasta?.ToString("yyyy-MM-dd")"
+                        class="form-control" />
                 </div>
                 <div class="col-md-3">
                     <input type="text" name="busqueda" value="@Model.Busqueda" placeholder="Buscar póliza o agente"
@@ -151,7 +156,7 @@
                     plugins: {
                         legend: {
                             labels: {
-                                color: "var(--color-primario)", // 🔥 uniforme
+                                color: "var(--color-primario)",
                                 font: { size: 13, weight: "bold" }
                             }
                         },
@@ -196,7 +201,8 @@
 
         function cargarGraficas() {
             $.get('@Url.Action("DatosGraficas", "Reserva")', {
-                fecha: '@Model.FechaFiltro',
+                fechaDesde: '@Model.FechaDesde?.ToString("yyyy-MM-dd")',
+                fechaHasta: '@Model.FechaHasta?.ToString("yyyy-MM-dd")',
                 busqueda: '@Model.Busqueda',
                 oficina: '@Model.Oficina'
             }, function (data) {
@@ -225,4 +231,3 @@
         $(document).ready(cargarGraficas);
     </script>
 }
-

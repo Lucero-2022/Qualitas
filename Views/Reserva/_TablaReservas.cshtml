@@ -66,14 +66,19 @@
         });
     </script>
 }
-
 @if (Model.TotalPaginas > 1)
 {
     <nav aria-label="Paginación de reservas">
         <ul class="pagination justify-content-center">
             <li class="page-item @(Model.PaginaActual == 1 ? "disabled" : "")">
                 <a class="page-link"
-                    href="@Url.Action("Reservas", new { page = Model.PaginaActual - 1, fecha = Model.FechaFiltro, busqueda = Model.Busqueda, oficina = Model.Oficina })">
+                   href="@Url.Action("Reservas", new { 
+                       page = Model.PaginaActual - 1, 
+                       fechaDesde = Model.FechaDesde?.ToString("yyyy-MM-dd"), 
+                       fechaHasta = Model.FechaHasta?.ToString("yyyy-MM-dd"), 
+                       busqueda = Model.Busqueda, 
+                       oficina = Model.Oficina 
+                   })">
                     Anterior
                 </a>
             </li>
@@ -82,7 +87,13 @@
             {
                 <li class="page-item @(i == Model.PaginaActual ? "active" : "")">
                     <a class="page-link"
-                        href="@Url.Action("Reservas", new { page = i, fecha = Model.FechaFiltro, busqueda = Model.Busqueda, oficina = Model.Oficina })">
+                       href="@Url.Action("Reservas", new { 
+                           page = i, 
+                           fechaDesde = Model.FechaDesde?.ToString("yyyy-MM-dd"), 
+                           fechaHasta = Model.FechaHasta?.ToString("yyyy-MM-dd"), 
+                           busqueda = Model.Busqueda, 
+                           oficina = Model.Oficina 
+                       })">
                         @i
                     </a>
                 </li>
@@ -90,7 +101,13 @@
 
             <li class="page-item @(Model.PaginaActual == Model.TotalPaginas ? "disabled" : "")">
                 <a class="page-link"
-                    href="@Url.Action("Reservas", new { page = Model.PaginaActual + 1, fecha = Model.FechaFiltro, busqueda = Model.Busqueda, oficina = Model.Oficina })">
+                   href="@Url.Action("Reservas", new { 
+                       page = Model.PaginaActual + 1, 
+                       fechaDesde = Model.FechaDesde?.ToString("yyyy-MM-dd"), 
+                       fechaHasta = Model.FechaHasta?.ToString("yyyy-MM-dd"), 
+                       busqueda = Model.Busqueda, 
+                       oficina = Model.Oficina 
+                   })">
                     Siguiente
                 </a>
             </li>
