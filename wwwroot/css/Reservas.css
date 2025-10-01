@@ -138,3 +138,15 @@
 .text-primario {
   color: #941B80;
 }
+
+.grafica-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* centra horizontal */
+    justify-content: center; /* centra vertical */
+    min-height: 350px;     /* altura uniforme */
+}
+
+.grafica-container canvas {
+    max-width: 90% !important;
+}

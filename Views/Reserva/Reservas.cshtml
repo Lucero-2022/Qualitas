@@ -5,20 +5,16 @@
     <link rel="stylesheet" href="~/css/Reservas.css" asp-append-version="true" />
 }
 
-
 <p class="ultima-actualizacion text-start">
     <span class="badge bg-light text-dark shadow-sm px-3 py-2">
-        <i class=" bi-clock-history me-2"></i>
+        <i class="bi-clock-history me-2"></i>
         Última actualización: @Model.UltimaActualizacion
     </span>
 </p>
 
-
-
 <div class="dashboard-container">
 
     <!-- KPIs -->
-
     <div class="row mb-4">
         <div class="col-md-3">
             <div class="card shadow-sm h-100">
@@ -40,8 +36,9 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h6 class="text-muted text-uppercase mb-1">Total al ajuste</h6>
-                            <h3 class="fw-bold text-primario mb-0">@Model.SumaAjustes.ToString("C", new
-                                                                System.Globalization.CultureInfo("es-MX"))</h3>
+                            <h3 class="fw-bold text-primario mb-0">
+                                @Model.SumaAjustes.ToString("C", new System.Globalization.CultureInfo("es-MX"))
+                            </h3>
                         </div>
                         <i class="bi bi-cash-stack icon-kpi"></i>
                     </div>
@@ -55,8 +52,9 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h6 class="text-muted text-uppercase mb-1">Máximo De Hoy</h6>
-                            <h3 class="fw-bold text-primario mb-0">@Model.MaximoHoy.ToString("C", new
-                                                                System.Globalization.CultureInfo("es-MX"))</h3>
+                            <h3 class="fw-bold text-primario mb-0">
+                                @Model.MaximoHoy.ToString("C", new System.Globalization.CultureInfo("es-MX"))
+                            </h3>
                         </div>
                         <i class="bi bi-graph-up icon-kpi"></i>
                     </div>
@@ -70,8 +68,9 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h6 class="text-muted text-uppercase mb-1">Acumulado del mes</h6>
-                            <h3 class="fw-bold text-primario mb-0">@Model.SumaMesActual.ToString("C", new
-                                                                System.Globalization.CultureInfo("es-MX"))</h3>
+                            <h3 class="fw-bold text-primario mb-0">
+                                @Model.SumaMesActual.ToString("C", new System.Globalization.CultureInfo("es-MX"))
+                            </h3>
                         </div>
                         <i class="bi bi-calendar-check icon-kpi"></i>
                     </div>
@@ -80,9 +79,7 @@
         </div>
     </div>
 
-
     <!-- Filtros -->
-
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <form method="get" asp-action="Reservas" class="row g-1 align-items-end">
@@ -121,7 +118,6 @@
         </div>
     </div>
 
-
     <!-- Tabla -->
     <div class="card shadow-sm mb-4">
         <div class="card-body">
@@ -135,139 +131,103 @@
     <div class="row mt-4 graficas-row">
         <div class="col-md-6 d-flex">
             <div class="card shadow-sm flex-fill">
+                <div class="card-header text-center fw-bold text-primario">
+                    Coberturas
+                </div>
                 <div class="card-body grafica-container">
-                    <h6 class="text-center">Coberturas</h6>
                     <canvas id="chartCoberturas"></canvas>
                 </div>
             </div>
         </div>
         <div class="col-md-6 d-flex">
             <div class="card shadow-sm flex-fill">
+                <div class="card-header text-center fw-bold text-primario">
+                    Oficinas
+                </div>
                 <div class="card-body grafica-container">
-                    <h6 class="text-center">Oficinas</h6>
                     <canvas id="chartOficinas"></canvas>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </div> 
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        let charts = {};
+@section Scripts {
+        <script>
+            const charts = {};
+            function renderChart(canvasId, type, labels, data, colors) {
+                const ctx = document.getElementById(canvasId).getContext("2d");
 
-        function renderChart(canvasId, type, labels, values) {
-            const colors = getChartColors();
-            if (charts[canvasId]) charts[canvasId].destroy();
-
-            const ctx = document.getElementById(canvasId).getContext("2d");
-
-            // 🔥 Forzar nitidez en pantallas retina
-            
-            const ratio = window.devicePixelRatio || 1;
-            ctx.canvas.width = ctx.canvas.offsetWidth * ratio;
-            ctx.canvas.height = ctx.canvas.offsetHeight * ratio;
-            ctx.scale(ratio, ratio);
-
-            charts[canvasId] = new Chart(ctx, {
-                type: type,
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: type === "bar" ? "Ajuste Total" : "Coberturas",
-                        data: values,
-                        backgroundColor: colors,
-                        borderColor: colors,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: "var(--color-primario)",
-                                font: { size: 13, weight: "bold" }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    let value = context.raw;
-                                    return `${context.label}: $${value.toLocaleString("es-MX")}`;
+                new Chart(ctx, {
+                    type: type,
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: type === "bar" ? "Oficinas" : "Coberturas",
+                            data: data,
+                            backgroundColor: colors
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: type === "pie", // 👈 solo en pie
+                                position: "bottom"
+                            },
+                            datalabels: {
+                                color: "#000",
+                                anchor: type === "pie" ? "center" : "end",
+                                align: type === "pie" ? "center" : "top",
+                                formatter: (value, context) => {
+                                    const dataset = context.chart.data.datasets[0].data;
+                                    const total = dataset.reduce((a, b) => a + b, 0);
+                                    if (type === "pie") {
+                                        const porcentaje = ((value / total) * 100).toFixed(1) + "%";
+                                        return porcentaje;
+                                    } else if (type === "bar") {
+                                        return "$" + value.toLocaleString();
+                                    }
+                                    return value;
                                 }
                             }
                         }
                     },
-                    scales: type === "bar" ? {
-                        x: { ticks: { color: "var(--color-primario)" } },
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: "var(--color-primario)",
-                                callback: function (value) {
-                                    return "$" + value.toLocaleString("es-MX");
-                                }
-                            }
-                        }
-                    } : {}
-                }
-            });
-        }
+                    plugins: [ChartDataLabels]
+                });
+            }
 
-        function getChartColors() {
-            const styles = getComputedStyle(document.documentElement);
-            return [
-                styles.getPropertyValue('--chart-color-1').trim(),
-                styles.getPropertyValue('--chart-color-2').trim(),
-                styles.getPropertyValue('--chart-color-3').trim(),
-                styles.getPropertyValue('--chart-color-4').trim(),
-                styles.getPropertyValue('--chart-color-5').trim(),
-                styles.getPropertyValue('--chart-color-6').trim(),
-                styles.getPropertyValue('--chart-color-7').trim(),
-                styles.getPropertyValue('--chart-color-8').trim()
-            ];
-        }
 
-        function cargarGraficas() {
-            $.get('@Url.Action("DatosGraficas", "Reserva")', {
-                fechaDesde: '@Model.FechaDesde?.ToString("yyyy-MM-dd")',
-                fechaHasta: '@Model.FechaHasta?.ToString("yyyy-MM-dd")',
-                busqueda: '@Model.Busqueda',
-                oficina: '@Model.Oficina'
-            }, function (data) {
-                renderChart("chartCoberturas", "pie",
-                    data.coberturas.map(c => c.cobertura),
-                    data.coberturas.map(c => c.sumaAjustes));
 
-                renderChart("chartOficinas", "bar",
-                    data.oficinas.map(o => o.oficina),
-                    data.oficinas.map(o => o.ajusteTotal));
-            });
-        }
 
-        // 🔄 Paginación AJAX (solo tabla)
-        $(document).on("click", ".pagination a", function (e) {
-            e.preventDefault();
-            var url = $(this).attr("href");
+            function cargarGraficas() {
+                $.get('@Url.Action("DatosGraficas", "Reserva")', {
+                    fechaDesde: '@Model.FechaDesde?.ToString("yyyy-MM-dd")',
+                    fechaHasta: '@Model.FechaHasta?.ToString("yyyy-MM-dd")',
+                    busqueda: '@Model.Busqueda',
+                    oficina: '@Model.Oficina'
+                }, function (data) {
+                    renderChart("chartCoberturas", "pie",
+                        data.coberturas.labels,
+                        data.coberturas.data,
+                        data.coberturas.colors);
 
-            $.get(url, function (data) {
-                $("#tabla-reservas").html(data);
+                    renderChart("chartOficinas", "bar",
+                        data.oficinas.labels,
+                        data.oficinas.data,
+                        data.oficinas.colors); // 👈 antes estabas usando [data.oficinas.color]
+
+                });
+            }
+
+            $(document).ready(function () {
+                cargarGraficas();
             });
 
-            return false;
-        });
-
-        $(document).ready(cargarGraficas);
-    </script>
-
-    <script>
-        function limpiarFiltros() {
-            window.location.href = '@Url.Action("Reservas", "Reserva")';
-        }
-    </script>
-
+            function limpiarFiltros() {
+                window.location.href = '@Url.Action("Reservas", "Reserva")';
+            }
+        </script>
 }

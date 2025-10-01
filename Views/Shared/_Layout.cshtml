@@ -5,53 +5,42 @@
     <meta charset="utf-8" />
     <title>@ViewData["Title"] - Qualitas</title>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
-    
 
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    
 
     <!-- Sección opcional de estilos por vista -->
     @RenderSection("Styles", required: false)
 
-    <!-- Librerías externas -->
+    <!-- Librerías externas CSS -->
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
-
 
 <body class="d-flex flex-column min-vh-100">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm">
         <div class="container">
-            <!-- Marca -->
             <a class="navbar-brand fw-bold text-morado" asp-controller="Home" asp-action="Index">Qualitas</a>
-
-            <!-- Botón responsive -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Menú -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a></li>
-                    <!-- Agentes -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="agentesDropdown" role="button"
                             data-bs-toggle="dropdown">Agentes</a>
                         <ul class="dropdown-menu">
-                        <a class="dropdown-item" asp-controller="Reserva" asp-action="Reservas">Reservas</a>
+                            <a class="dropdown-item" asp-controller="Reserva" asp-action="Reservas">Reservas</a>
                             <a class="dropdown-item" asp-controller="CobranzaProduccion" asp-action="Index">Ventas</a>
                             <li><a class="dropdown-item" href="#">Cobranza</a></li>
                         </ul>
                     </li>
-                    <!-- Emisión -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="emisionDropdown" role="button"
                             data-bs-toggle="dropdown">Oficina</a>
@@ -61,8 +50,6 @@
                             <li><a class="dropdown-item" href="#">Contacto Agentes</a></li>
                         </ul>
                     </li>
-
-                    <!-- Blog -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="blogDropdown" role="button"
                             data-bs-toggle="dropdown">Blog</a>
@@ -85,7 +72,7 @@
         @RenderBody()
     </main>
 
-    <!-- Footer global -->
+    <!-- Footer -->
     <footer class="footer-banner text-center text-white mt-auto">
         <div class="container py-4">
             <p class="mb-2 small">© 2025 Qualitas - Todos los derechos reservados</p>
@@ -108,11 +95,29 @@
         <i class="bi bi-whatsapp"></i>
     </a>
 
-    <!-- Scripts -->
+    <!-- ================== SCRIPTS ================== -->
+
+    <!-- jQuery primero -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Plugin para etiquetas -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+
+    <!-- AOS -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Tus scripts (después de jQuery) -->
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/index.js" asp-append-version="true"></script>
+
+
+
 
     <script>
         // Inicialización de AOS
@@ -138,6 +143,9 @@
         });
     </script>
 
+    <!-- Sección Scripts de cada vista -->
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
+
 </html>
