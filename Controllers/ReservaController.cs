@@ -99,7 +99,7 @@ namespace Qualitas.Controllers
 
                 PaginaActual = pageNumber,
                 TotalPaginas = (int)Math.Ceiling(totalReservas / (double)pageSize)
-         };
+            };
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
                 return PartialView("_TablaReservas", model);
@@ -127,6 +127,13 @@ namespace Qualitas.Controllers
                 .Select(g => new { Label = g.Key, Value = g.Sum(r => r.Ajuste) })
                 .ToListAsync();
 
+            var acumulado = await query
+                .GroupBy(r => r.Fecha.Date) // agrupa por día
+                .Select(g => new { Label = g.Key, Value = g.Sum(r => r.Ajuste) })
+                .OrderBy(x => x.Label)
+                .ToListAsync();
+
+
             return Json(new
             {
                 coberturas = new
@@ -134,25 +141,27 @@ namespace Qualitas.Controllers
                     labels = coberturas.Select(c => c.Label).ToList(),
                     data = coberturas.Select(c => c.Value).ToList(),
                     colors = new[] {
-                "#941B80", "#E63946", "#457B9D", "#2A9D8F",
-                "#F4A261", "#E9C46A", "#8D99AE", "#06D6A0",
-                "#FFD166", "#118AB2"
-
-                }.Take(coberturas.Count).ToList()
+            "#941B80", "#E63946", "#457B9D", "#2A9D8F",
+            "#F4A261", "#E9C46A", "#8D99AE", "#06D6A0",
+            "#FFD166", "#118AB2"
+        }.Take(coberturas.Count).ToList()
                 },
                 oficinas = new
                 {
                     labels = oficinas.Select(o => o.Label).ToList(),
                     data = oficinas.Select(o => o.Value).ToList(),
                     colors = new[] {
-                "#457B9D", "#2A9D8F", "#F4A261", "#E63946", "#118AB2",
-                "#06D6A0", "#FFD166", "#9D4EDD", "#5A189A", "#C77DFF"
-                }.Take(oficinas.Count).ToList()
+            "#457B9D", "#2A9D8F", "#F4A261", "#E63946", "#118AB2",
+            "#06D6A0", "#FFD166", "#9D4EDD", "#5A189A", "#C77DFF"
+        }.Take(oficinas.Count).ToList()
+                },
+                acumulado = new
+                {
+                    labels = acumulado.Select(a => a.Label.ToString("dd/MM")).ToList(),
+                    data = acumulado.Select(a => a.Value).ToList()
                 }
-
-
-
             });
+
         }
 
 

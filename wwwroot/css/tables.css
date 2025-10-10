@@ -10,6 +10,17 @@
     border: none;
 }
 
+/* Tabla parcial */
+#tabla-reservas table {
+  font-size: 0.95rem;
+}
+
+#tabla-reservas th {
+  background-color: var(--color-primario);
+  color: #fff;
+  text-align: center;
+}
+
 /* Celdas centradas */
 .table.table-custom td {
     vertical-align: middle;

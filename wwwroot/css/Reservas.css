@@ -7,9 +7,8 @@
 
 /* KPIs */
 .icon-kpi {
-  font-size: 2rem;
-  color: var(--color-aqua);
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  color: #0096AE;
 }
 
 .dashboard-container .card h6 {
@@ -33,27 +32,32 @@
 /* Botón Filtrar */
 .btn-filtro {
   background-color: #941B80;
-  /* morado institucional */
   color: #fff;
   font-weight: bold;
   border-radius: 6px;
   padding: 4px 10px;
-  /* más delgado */
   font-size: 0.8rem;
   transition: background-color 0.3s ease;
 }
-
 .btn-filtro:hover {
   background-color: #0096AE;
-  /* verde institucional */
   color: #fff;
 }
+.btn-filtro i {
+  display: inline-block;
+}
+.btn-filtro:hover i {
+  animation: girarIcono 0.4s ease-in-out;
+}
+@keyframes girarIcono {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(20deg); }
+  100% { transform: rotate(0deg); }
+}
 
-
-
+/* Botón Limpiar */
 .btn-limpiar {
   background-color: #0096AE;
-  /* verde institucional */
   color: #fff;
   font-weight: bold;
   border-radius: 6px;
@@ -61,36 +65,9 @@
   font-size: 0.875rem;
   transition: background-color 0.3s ease;
 }
-
 .btn-limpiar:hover {
   background-color: #941B80;
-  /* morado institucional */
   color: #fff;
-}
-
-
-/* Tabla parcial */
-#tabla-reservas table {
-  font-size: 0.95rem;
-}
-
-#tabla-reservas th {
-  background-color: var(--color-primario);
-  color: #fff;
-  text-align: center;
-}
-
-/* Gráficas */
-.grafica-container {
-  height: 400px;
-  min-height: 300px;
-  position: relative;
-}
-
-.grafica-container h6 {
-  font-weight: bold;
-  color: var(--color-primario);
-  margin-bottom: 1rem;
 }
 
 /* Última actualización */
@@ -99,54 +76,99 @@
   font-size: 0.85rem;
   color: var(--color-muted);
 }
-
 .ultima-actualizacion i {
   color: var(--color-primario);
 }
 
-.btn-filtro:hover i {
-  animation: girarIcono 0.4s ease-in-out;
+/* === Gráficas === */
+.graficas-row .card {
+  height: 420px;           /* altura uniforme para TODAS las cards */
+  min-height: 420px;
 }
 
-@keyframes girarIcono {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(20deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-.btn-filtro i {
-  display: inline-block;
-}
-.text-primario {
-  color: #941B80;
+.graficas-row .card-header {
+  background-color: #f8f9fa;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #941B80;
 }
 
-.border-primario {
-  border-color: #941B80 !important;
+/* === Card específica: Acumulado del Mes === */
+.card-grafica-grande {
+  height: 420px !important;     /* altura igualada con las demás */
+  min-height: 420px !important;
 }
 
-.icon-kpi {
-  font-size: 1.5rem;
-  color: #0096AE;
+/* === Leyendas personalizadas === */
+#legendOficinas .badge,
+#legendAcumuladoMes .badge {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 500;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  margin: 2px;
 }
 
-.text-primario {
-  color: #941B80;
+/* Scroll horizontal si hay muchas etiquetas */
+.chart-legend-horizontal {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto;
+  justify-content: center;
+  gap: 12px;
+}
+.chart-legend-horizontal::-webkit-scrollbar {
+  height: 6px;
 }
 
+/* === Contenedor de gráfica === */
 .grafica-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;   /* centra horizontal */
-    justify-content: center; /* centra vertical */
-    min-height: 350px;     /* altura uniforme */
+  position: relative;
+  height: 100% !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
 }
 
-.grafica-container canvas {
-    max-width: 90% !important;
+.card.flex-fill {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.card.flex-fill .card-body {
+  flex: 1 1 auto !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+}
+
+/* Canvas dentro del card */
+.card-body.grafica-container canvas,
+.grafica-container > canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+/* Evitar límites globales */
+img, canvas, svg {
+  max-width: none !important;
+  max-height: none !important;
+}
+
+/* Evitar que las etiquetas del eje X se salgan del card */
+.card-body.grafica-container {
+  padding-bottom: 35px !important; /* espacio extra para las etiquetas */
+  overflow: hidden; /* asegura que no se vean recortes feos */
 }

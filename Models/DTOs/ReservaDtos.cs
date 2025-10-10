@@ -1,3 +1,6 @@
+
+
+
 using Qualitas.Models;
 
 namespace Qualitas.Models.DTOs
@@ -15,6 +18,8 @@ namespace Qualitas.Models.DTOs
         // Gráficas
         public List<CoberturaDTO> Coberturas { get; set; } = new();
         public List<OficinaDTO> Oficinas { get; set; } = new();
+
+        
 
         // Filtros activos
         public DateTime? FechaDesde { get; set; }
