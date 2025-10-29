@@ -1,205 +1,710 @@
-/* === Hero institucional === */
-.hero-section {
-  min-height: 500px;
+/* =================== Variables globales =================== */
+:root {
+  --color-primario: #1A1C60;
+  --color-secundario: #0096AE;
+  --color-acento: #941B80;
+  --color-muted: #B0B0B0;
+  --font-base: 'Montserrat', Arial, sans-serif;
+}
+
+
+/* =================== Tipografía base =================== */
+.titulo-base {
+  font-family: var(--font-base);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  color: #1A1C60;
+}
+
+.subtitulo-base {
+  font-family: var(--font-base);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  color: var(--color-muted);
+}
+
+.texto-base {
+  font-family: var(--font-base);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #B0B0B0;
+}
+
+/* =================== Variantes de títulos =================== */
+
+.titulo-derecha {
+  text-align: right;
+}
+
+.titulo-izquierda {
+  text-align: left;
+}
+
+.titulo-centro {
+  text-align: center;
+}
+
+/* =================== Cards base =================== */
+
+.card-base {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: all .3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1 1 auto;
+}
+
+.card-base:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =================== Diferenciación de secciones =================== */
+
+#banner {
+  background-color: #f8f9fa;
+}
+
+#beneficios {
+  background-color: #fff;
+}
+
+#inspiracion {
+  background-color: #fff;
+}
+
+#colaboradores {
+  background-color: #fff;
+}
+
+#blog {
+  background-color: #fff;
+}
+
+#ubicacion {
+  background-color: #fff;
+}
+
+
+/* =================== Hero =================== */
+
+.hero-modern {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  position: relative;
+  background: linear-gradient(270deg, #0096AE, #941B80);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Textos */
+.hero-modern h1,
+.hero-modern p {
   color: #fff;
+  margin-bottom: 1rem;
+  animation: fadeSlide 1.5s ease forwards;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Onda inferior */
+.custom-shape-divider-bottom {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+}
+
+.custom-shape-divider-bottom svg {
+  display: block;
+  width: 100%;
+  height: 120px;
+}
+
+
+/* =================== Cards de Beneficios =================== */
+
+.beneficio-card {
+  text-align: left;
+  flex: 1 1 300px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.5rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* Icono alineado al borde superior izquierdo */
+.icono-wrapper {
+  margin-bottom: 1rem;
+}
+
+.icono-primario {
+  color: #0096AE;
+}
+
+
+/* =================== Inspiración  =================== */
+
+
+/* Ondas superiores e inferiores */
+.custom-shape-divider-top,
+.custom-shape-divider-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 0;
+  /* asegura que queden detrás del contenido */
+}
+
+.custom-shape-divider-top {
+  top: 0;
+}
+
+.custom-shape-divider-bottom {
+  bottom: 0;
+}
+
+.custom-shape-divider-top svg,
+.custom-shape-divider-bottom svg {
+  display: block;
+  width: 100%;
+  height: 120px;
+}
+
+.inspiracion-section {
+  position: relative;
+  background: #f8f9fa;
+  /* fondo claro para el contenido */
+  z-index: 2;
+}
+
+
+.inspiracion-section .container {
+  position: relative;
+  z-index: 2;
+  /* contenido por encima */
+}
+
+/* Textos */
+.hero-modern h1,
+.hero-modern p {
+  color: #fff;
+  margin-bottom: 1rem;
+  animation: fadeSlide 1.5s ease forwards;
+}
+
+/* =================== Estadisitca =================== */
+
+.estadisticas-section {
   position: relative;
   overflow: hidden;
-
-  /* Fondo animado directo */
-  background: linear-gradient(135deg, #941B80, #4A148C, #00BFA6);
-  background-size: 600% 600%;
-  animation: gradientAnim 12s ease infinite;
+  background: linear-gradient(270deg, #0096AE, #941B80);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
 }
 
-/* Overlay opcional para contraste */
-.hero-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  z-index: 0;
-}
-.hero-section > * {
-  position: relative;
-  z-index: 1;
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-/* Animación del degradado */
-@keyframes gradientAnim {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Cards flotantes */
+.estadistica-card {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 15px;
+  padding: 2.5rem;
+  backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform .3s ease, box-shadow .3s ease;
 }
 
-/* === Títulos principales === */
-.titulo-principal {
-  color: var(--color-primario);
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 2rem;
+.estadistica-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
 }
 
-/* === Team cards (equipo) === */
-.team-card {
-  border: 1px solid #eee;
-  border-radius: 10px;
-  padding: 1rem;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.team-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-}
-.team-card img {
-  width: 130px;          /* ancho fijo */
-  height: 200px;         /* alto mayor que el ancho → óvalo vertical */
-  border: 4px solid var(--color-primario);
-  border-radius: 30%;
-  margin-bottom: 1rem;
-  object-fit: cover;
-}
-.team-card h4 {
-  font-weight: 600;
-  color: var(--color-primario);
-}
-.team-card p {
-  color: var(--color-muted);
-  font-size: 0.9rem;
+/* Íconos */
+.estadistica-card i {
+  color: #fff;
+  transition: color .3s ease, transform .3s ease;
 }
 
-/* === Beneficios === */
-.benefit-icon {
-  font-size: 3rem;
-  color: var(--color-primario);
-  margin-bottom: 0.5rem;
+.estadistica-card:hover i {
+  color: #941B80;
+  transform: scale(1.2);
 }
-.text-primario {
-  color: var(--color-primario) !important;
-}
-.bg-primario {
-  background-color: var(--color-primario) !important;
+
+/* Textos */
+#estadisticas .titulo-base,
+#estadisticas .subtitulo-base {
   color: #fff !important;
 }
 
-/* === Blog === */
-#blog .card {
-  border: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-#blog .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-}
-#blog .badge.bg-primario {
-  background-color: var(--color-primario) !important;
+/* Más altura */
+.py-9 {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
 }
 
-/* === Testimonios === */
-#testimonios blockquote {
-  font-size: 1.1rem;
-  font-style: italic;
-  color: #555;
-  border-left: 4px solid var(--color-primario);
-  padding-left: 1rem;
-}
-#testimonios blockquote footer {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--color-muted);
+/* Onda superior */
+.custom-shape-divider-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
 }
 
-/* === Indicadores del carrusel como barritas === */
-.carousel-indicators [data-bs-target] {
-  width: 40px;              /* ancho de la barrita */
-  height: 6px;              /* alto de la barrita */
-  margin: 0 6px;
-  background-color: #ccc;   /* color base */
-  border-radius: 3px;
-  opacity: 0.6;
-  transition: all 0.3s ease;
-}
-.carousel-indicators .active {
-  background-color: var(--color-primario); /* color institucional */
-  opacity: 1;
-  transform: scale(1.1);
+.custom-shape-divider-top svg {
+  display: block;
+  width: 100%;
+  height: 100px;
 }
 
-/* === Responsive exclusivo de inicio === */
-@media (max-width: 768px) {
-  .hero-section {
-    min-height: 350px;
-    padding: 2rem 1rem;
-  }
-  .titulo-principal {
-    font-size: 2rem;
-  }
-  .carousel-inner img {
-    height: 300px;
-    object-fit: cover;
-  }
-  section .container {
-    text-align: center;
-  }
-  section img {
-    margin-top: 20px;
-  }
+/* Onda inferior */
+.custom-shape-divider-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-bottom svg {
+  display: block;
+  width: 100%;
+  height: 120px;
 }
 
 
+/* =================== Blog =================== */
 
-#ubicacion .direccion p,
-#ubicacion .horario p {
-  font-size: 1rem;
-  color: #444;
+.blog-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
 }
 
-#ubicacion .btn-qualitas {
-  background-color: var(--color-primario);
+/* Imagen más grande */
+.blog-item .blog-img img {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+/* Imagen a la izquierda */
+.blog-item:not(.reverse) .blog-img {
+  margin-right: 20px;
+}
+
+/* Imagen a la derecha */
+.blog-item.reverse {
+  flex-direction: row-reverse;
+}
+
+.blog-item.reverse .blog-img {
+  margin-left: 20px;
+}
+
+/* Contenido */
+.blog-content {
+  max-width: calc(100% - 300px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* botón al final */
+  align-items: flex-start;
+  /* siempre alineado a la izquierda */
+  text-align: left;
+  /* títulos y párrafos alineados a la izquierda */
+}
+
+.blog-content h4 {
+  margin-bottom: 10px;
+}
+
+.blog-content p {
+  margin-bottom: 15px;
+}
+
+/* Botón */
+.btn-blog {
+  display: inline-block;
+  padding: 10px 22px;
+  background: #0096AE;
   color: #fff;
-  border-radius: 30px;
-  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+}
+
+.btn-blog:hover {
+  background: #941B80;
+  transform: translateY(-2px);
+}
+
+/* =================== Carrusel colaboradores =================== */
+
+.colaborador-slide {
+  gap: 15px;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.colaborador-card {
+  width: 260px;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.colaborador-text {
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.colaborador-text h5 {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.colaborador-text p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.colaborador-img {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.colaborador-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Flechas del carrusel */
+.carousel-control-prev,
+.carousel-control-next {
+  top: 55%;
+  transform: translateY(-50%);
+  width: 8%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: none;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-control-prev-icon::after,
+.carousel-control-next-icon::after {
+  content: '';
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+}
+
+.carousel-control-prev-icon::after {
+  transform: rotate(-135deg);
+}
+
+.carousel-control-next-icon::after {
+  transform: rotate(45deg);
+}
+
+/* Sección Colaboradores */
+.colaboradores-section {
+  position: relative;
+  background: linear-gradient(270deg, #0096AE, #941B80);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  z-index: 1;
+  min-height: 100vh; /* ocupa toda la pantalla */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.colaboradores-section .custom-shape-divider-top,
+.colaboradores-section .custom-shape-divider-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 0;
+}
+
+.colaboradores-section .custom-shape-divider-top {
+  top: 0;
+}
+
+.colaboradores-section .custom-shape-divider-bottom {
+  bottom: 0;
+}
+
+.colaboradores-section .custom-shape-divider-top svg,
+.colaboradores-section .custom-shape-divider-bottom svg {
+  display: block;
+  width: 100%;
+  height: 120px;
+}
+
+.colaboradores-section .container {
+  position: relative;
+  z-index: 2; /* contenido encima de las ondas */
+}
+
+
+
+/* =================== Altura / Espaciado de secciones =================== */
+
+#banner {
+  padding: 150px 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flow-root;
+}
+
+#beneficios {
+  padding: 100px 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flow-root;
+}
+
+#colaboradores {
+  padding: 90px 0;
+  min-height: auto;
+  /* ya no fuerza pantalla completa */
+  box-sizing: border-box;
+  display: flow-root;
+}
+
+#blog {
+  padding: 90px 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flow-root;
+}
+
+#ubicacion {
+  padding: 60px 0;
+  min-height: auto;
+  box-sizing: border-box;
+  display: flow-root;
+  background: transparent;
+}
+
+#banner-final {
+  margin-top: 40px;
+}
+
+/* =================== Cards con misma altura en filas =================== */
+
+.row.g-4,
+.row.g-3,
+.row.g-2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.row.g-4>[class*="col-"],
+.row.g-3>[class*="col-"],
+.row.g-2>[class*="col-"] {
+  display: flex;
+}
+
+/* =================== Visítanos =================== */
+#ubicacion {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa); /* fondo claro */
+  z-index: 0;
+  padding: 100px 0; /* mismo ritmo que otras secciones */
+}
+
+/* Botón "Cómo llegar" */
+a.btn-maps {
+  background-color: #0096AE;   /* aqua corporativo */
+  color: #fff !important;      /* texto blanco */
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1.2;
   transition: background 0.3s ease;
 }
-#ubicacion .btn-qualitas:hover {
-  background-color: #6a0f5f; /* tono más oscuro */
+
+a.btn-maps:hover {
+  background-color: #941B80;   /* morado al hover */
 }
 
-#ubicacion i {
-  min-width: 30px;
+/* Íconos de la sección Ubicación */
+
+#ubicacion {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  z-index: 0;
+  padding: 100px 0 60px; /* espacio arriba y abajo */
 }
 
-/* Opiniones - cards */
-.opinion-card {
-  border-left: 5px solid #0096AE;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.opinion-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-}
-.opinion-card h6 {
-  color: #0096AE;
+/* Onda superior */
+.custom-shape-divider-top-ubicacion {
+  width: 100%;
+  line-height: 0;
+  margin-bottom: 2rem; /* separa la onda del contenido */
 }
 
-/* Opiniones */
-.opinion-card {
-  border-left: 5px solid #0096AE;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.opinion-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-}
-.opinion-card h6 {
-  color: #0096AE;
+.custom-shape-divider-top-ubicacion svg {
+  display: block;
+  width: 100%;
+  height: 120px;
 }
 
-.icono-ubicacion {
-  color: #0096AE !important;
+
+
+
+
+/* =================== Responsive =================== */
+
+@media (max-width: 992px) {
+  .hero-modern {
+    min-height: 80vh;
+  }
+
+  .beneficio-card,
+  .blog-card {
+    min-height: 240px;
+  }
+
+  .blog-card {
+    margin-bottom: 30px;
+  }
+
+  /* Colaboradores: 2 por fila */
+  .colaborador-card {
+    flex: 1 1 45%;
+    max-width: 45%;
+  }
+
+  .colaborador-img {
+    height: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-modern {
+    min-height: 70vh;
+  }
+
+  .beneficio-card,
+  .blog-card {
+    flex: 1 1 100%;
+    min-height: auto;
+  }
+
+  .blog-card {
+    padding: 15px;
+  }
+
+  .blog-img img {
+    height: 180px;
+  }
+
+  /* Colaboradores: 1 por fila */
+  .colaborador-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .colaborador-img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-modern {
+    min-height: 60vh;
+  }
+
+  .blog-img img {
+    height: 150px;
+  }
+
+  .colaborador-img {
+    height: 180px;
+  }
 }

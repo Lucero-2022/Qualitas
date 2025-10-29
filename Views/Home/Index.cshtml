@@ -3,360 +3,472 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- Hero institucional -->
-<section class="hero-section d-flex align-items-center text-white" data-aos="fade-up">
-    <!-- Fondo animado detrás -->
-    <div class="bg-qualitas-animado"></div>
+<!-- =================== Hero =================== -->
 
-    <!-- Contenido -->
-    <div class="container text-center">
-        <h1 class="fw-bold display-4">Agentes expertos, soluciones efectivas</h1>
-        <p class="lead">Conoce cómo podemos ayudarte a alcanzar tus metas y logros.</p>
+<section class="hero-modern d-flex align-items-center text-center text-white">
+    <div class="container position-relative" data-aos="fade-up">
+        <h1 class="titulo-base anim-title">“Más que una oficina: somos tu respaldo constante.”</h1>
+        <p class="subtitulo-base anim-subtitle">
+            En Quálitas creemos que la confianza se construye con presencia y respaldo.
+            Por eso, nuestra oficina está diseñada para estar siempre cerca de ti.
+        </p>
+        <p class="subtitulo-base anim-subtitle" style="animation-delay: .2s;">Bienvenido:</p>
+    </div>
+
+    <!-- Onda inferior (se funde con Beneficios en blanco) -->
+    <div class="custom-shape-divider-bottom">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0 C200,100 400,0 600,80 C800,160 1000,60 1200,100 L1200,120 L0,120 Z" fill="#fff"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- =================== Inspiración =================== -->
+
+<section id="inspiracion" class="inspiracion-section py-7">
+
+    <!-- Onda superior (blanca, se funde con Beneficios) -->
+    <div class="custom-shape-divider-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,120 C600,20 600,100 1200,0 L1200,0 L0,0 Z" fill="#fff"></path>
+        </svg>
+    </div>
+
+    <div class="container" data-aos="fade-up">
+        <div class="row align-items-center">
+
+            <!-- Texto a la izquierda -->
+            <div class="col-lg-6 text-start mb-4 mb-lg-0">
+                <h2 class="titulo-base titulo-izquierda">Toma el control hoy.</h2>
+                <div class="subtitulo-base" style="max-width:600px;">
+                    <p>
+                        Nuestro compromiso es claro: darte soluciones reales que te respalden justo cuando más lo
+                        necesitas.
+                    </p>
+                    <p>
+                        Desde seguros de auto hasta fianzas y planes de retiro, trabajamos con transparencia,
+                        confiabilidad
+                        y respaldo profesional.
+                    </p>
+
+                    <p>
+                        Somos perseverantes, eficientes y cercanos. Nos tomamos el tiempo para entender tus necesidades,
+                        porque cada persona merece atención personalizada y soluciones a su medida. Ponemos todo nuestro
+                        esfuerzo en cuidar lo tuyo, porque tu tranquilidad es lo más importante.
+                    </p>
+
+                    <p>
+                        Creemos en relaciones duraderas, en estar presentes cuando surgen dudas,
+                        y en ofrecer respuestas claras que te den seguridad. Con nosotros, no solo contratas un
+                        servicio:
+                        construyes una alianza basada en confianza, empatía y resultados.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Imagen a la derecha -->
+            <div class="col-lg-6 text-center">
+                <img src="/Imagenes/oficina.jpg" alt="Equipo Quálitas" class="img-fluid rounded shadow">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Onda inferior (blanca, se funde con Estadísticas) -->
+    <div class="custom-shape-divider-bottom">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0 C600,100 600,20 1200,80 L1200,120 L0,120 Z" fill="#fff"></path>
+        </svg>
+    </div>
+
+</section>
+
+
+
+<!-- =================== Estadísticas =================== -->
+
+<section id="estadisticas" class="estadisticas-section text-center text-white py-9">
+
+    <!-- Onda superior (blanca, se funde con Inspiración) -->
+    <div class="custom-shape-divider-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,120 C600,20 600,100 1200,0 L1200,0 L0,0 Z" fill="#fff"></path>
+        </svg>
+    </div>
+
+    <div class="container py-5" data-aos="fade-up">
+        <div class="row g-5">
+            <!-- Agentes -->
+            <div class="col-md-4">
+                <div class="estadistica-card">
+                    <i class="bi bi-shield-check fs-1 mb-3"></i>
+                    <h3 class="titulo-base counter" data-target="500">485</h3>
+                    <p class="subtitulo-base">Agentes comprometidos</p>
+                </div>
+            </div>
+            <!-- Experiencia -->
+            <div class="col-md-4">
+                <div class="estadistica-card">
+                    <i class="bi bi-clock-history fs-1 mb-3"></i>
+                    <h3 class="titulo-base counter" data-target="20">21</h3>
+                    <p class="subtitulo-base">Años de experiencia en el sector</p>
+                </div>
+            </div>
+            <!-- Tranquilidad -->
+            <div class="col-md-4">
+                <div class="estadistica-card">
+                    <i class="bi bi-heart fs-1 mb-3"></i>
+                    <h3 class="titulo-base counter" data-target="100">100%</h3>
+                    <p class="subtitulo-base">Enfoque en tu tranquilidad</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frase de cierre -->
+        <p class="subtitulo-base mt-5 fs-5 fw-bold">
+            Te respaldamos para que vendas con confianza.
+        </p>
+    </div>
+
+    <!-- Onda inferior (blanca, se funde con la siguiente sección clara o footer) -->
+    <div class="custom-shape-divider-bottom">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0 C600,100 600,20 1200,80 L1200,120 L0,120 Z" fill="#fff"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- =================== Blog =================== -->
+
+<section id="blog" class="blog-section py-5">
+    <div class="container" data-aos="fade-up">
+        <div class="row mb-4">
+            <div class="col-lg-8 offset-lg-4 text-end">
+                <h2 class="titulo-base titulo-derecha">Nuestro Blog</h2>
+                <p class="subtitulo-base" style="max-width:600px; margin-left:auto;">
+                    Consejos, novedades y noticias para mantenerte informado.
+                </p>
+            </div>
+        </div>
+
+
+
+        <!-- Post 1 (imagen izquierda, texto derecha) -->
+
+        <div class="blog-item mb-5">
+            <div class="blog-img">
+                <img src="/Imagenes/QualiCono.jpg" alt="Blog 1">
+            </div>
+            <div class="blog-content">
+                <h4 class="titulo-base">El terror nunca fue tan divertido.</h4>
+                <p class="texto-base">Halloween no solo es misterio y disfraces, también es una oportunidad para llenar
+                    de color,
+                    creatividad y sonrisas cada rincón. En nuestra oficina celebramos esta fecha con un espíritu alegre:
+                    compartimos dulces,
+                    decoramos con calabazas y dejamos que la imaginación se apodere de nuestro día a día.</p>
+                <a href="#" class="btn-blog">Leer más</a>
+            </div>
+        </div>
+
+
+        <!-- Post 2 (texto izquierda, imagen derecha) -->
+
+        <div class="blog-item mb-5 reverse">
+            <div class="blog-img">
+                <img src="/Imagenes/QualiCono.jpg" alt="Blog 2">
+            </div>
+            <div class="blog-content">
+                <h4 class="titulo-base">El terror nunca fue tan divertido.</h4>
+                <p class="texto-base">Halloween no solo es misterio y disfraces, también es una oportunidad para llenar
+                    de color,
+                    creatividad y sonrisas cada rincón. En nuestra oficina celebramos esta fecha con un espíritu alegre:
+                    compartimos dulces,
+                    decoramos con calabazas y dejamos que la imaginación se apodere de nuestro día a día.</p>
+                <a href="#" class="btn-blog">Leer más</a>
+            </div>
+        </div>
+
+
+        <!-- Post 3 (imagen izquierda, texto derecha) -->
+        <div class="blog-item mb-5">
+            <div class="blog-img">
+                <img src="/Imagenes/QualiCono.jpg" alt="Blog 3">
+            </div>
+            <div class="blog-content">
+                <h4 class="titulo-base">El terror nunca fue tan divertido.</h4>
+                <p class="texto-base">Halloween no solo es misterio y disfraces, también es una oportunidad para llenar
+                    de color,
+                    creatividad y sonrisas cada rincón. En nuestra oficina celebramos esta fecha con un espíritu alegre:
+                    compartimos dulces,
+                    decoramos con calabazas y dejamos que la imaginación se apodere de nuestro día a día.</p>
+                <a href="#" class="btn-blog">Leer más</a>
+            </div>
+        </div>
+
     </div>
 </section>
 
 
 
-<!-- Equipo colaboradores en carrusel -->
 
-<section id="equipo" class="py-5 bg-light-gray text-center" data-aos="fade-up">
-    <div class="container">
-        <h2 class="titulo-principal mb-5" data-aos="fade-down">El talento de nuestra oficina</h2>
+<!-- =================== Colaboradores =================== -->
 
-        <!-- Indicadores -->
-        <div class="mb-4">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#colaboradoresCarousel" data-bs-slide-to="0"
-                    class="active"></button>
-                <button type="button" data-bs-target="#colaboradoresCarousel" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#colaboradoresCarousel" data-bs-slide-to="2"></button>
-                <button type="button" data-bs-target="#colaboradoresCarousel" data-bs-slide-to="3"></button>
+<section id="colaboradores" class="colaboradores-section position-relative py-7">
+
+    <!-- Onda superior invertida -->
+    <div class="custom-shape-divider-top">
+        <svg viewBox="0 0 1200 200" preserveAspectRatio="none">
+            <path d="M0,0 C300,180 900,20 1200,200 L1200,0 L0,0 Z" fill="#fff"></path>
+        </svg>
+    </div>
+
+
+
+
+    <div class="container" data-aos="fade-up">
+        <div class="row mb-3">
+            <div class="col-lg-8 text-start">
+                <h2 class="titulo-base titulo-izquierda text-white">Nuestros colaboradores</h2>
+                <p class="subtitulo-base text-white" style="max-width:600px;">La otra cara que hace todo posible.</p>
             </div>
         </div>
 
-        <!-- Carrusel -->
         <div id="colaboradoresCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
             <div class="carousel-inner">
 
                 <!-- Slide 1 -->
                 <div class="carousel-item active">
-                    <div class="row justify-content-center">
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team1.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Liliana Garcia">
-                                <h4>Liliana Garcia</h4>
-                                <p class="text-muted">Sub Dirección</p>
+                    <div class="d-flex colaborador-slide">
+                        <div class="colaborador card-base colaborador-card">
+                            <div class="colaborador-text">
+                                <h5 class="titulo-base">Kristell Berenice</h5>
+                                <p class="subtitulo-base">Caja</p>
+                            </div>
+                            <div class="colaborador-img">
+                                <img src="/Imagenes/Alexa.png" alt="Kristell Berenice">
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team2.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Fernando Frías">
-                                <h4>Fernando Frías</h4>
-                                <p class="text-muted">Director</p>
+                        <div class="colaborador card-base colaborador-card">
+                            <div class="colaborador-text">
+                                <h5 class="titulo-base">Yatzil Zarate</h5>
+                                <p class="subtitulo-base">Ejecutiva de emisión</p>
+                            </div>
+                            <div class="colaborador-img">
+                                <img src="/Imagenes/Alexa.png" alt="Yatzil Zarate">
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team3.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Lupita Guiron">
-                                <h4>Lupita Guiron</h4>
-                                <p class="text-muted">Recursos Humanos</p>
+                        <div class="colaborador card-base colaborador-card">
+                            <div class="colaborador-text">
+                                <h5 class="titulo-base">Lizbet Ramos</h5>
+                                <p class="subtitulo-base">Auxiliar de agente</p>
+                            </div>
+                            <div class="colaborador-img">
+                                <img src="/Imagenes/Alexa.png" alt="Lizbet Ramos">
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team4.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Brenda Jaimes">
-                                <h4>Brenda Jaimes</h4>
-                                <p class="text-muted">Coordinadora de agentes</p>
+                        <div class="colaborador card-base colaborador-card">
+                            <div class="colaborador-text">
+                                <h5 class="titulo-base">Alexandra Díaz</h5>
+                                <p class="subtitulo-base">Recepción</p>
+                            </div>
+                            <div class="colaborador-img">
+                                <img src="/Imagenes/Alexa.png" alt="Alexandra Díaz">
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Slide 2 -->
-                <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team5.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Lizeth Ramos">
-                                <h4>Lizeth Ramos</h4>
-                                <p class="text-muted">Auxiliar de agente</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team6.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Rosalba Solis">
-                                <h4>Rosalba Solis</h4>
-                                <p class="text-muted">Supervisora de atención</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team7.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Kristell Berenice">
-                                <h4>Kristell Berenice</h4>
-                                <p class="text-muted">Caja</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team8.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Yatzil Zarate">
-                                <h4>Yatzil Zarate</h4>
-                                <p class="text-muted">Ejecutiva de emisión</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Slide 3 -->
-                <div class="carousel-item">
-                    <div class="row justify-content-center">
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team9.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Julio Leon">
-                                <h4>Julio Leon</h4>
-                                <p class="text-muted">Auxiliar de siniestro</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/Alexa.png" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Alexandra Diaz">
-                                <h4>Alexandra Diaz</h4>
-                                <p class="text-muted">Recepción</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team11.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Emilio Chávez">
-                                <h4>Emilio Chávez</h4>
-                                <p class="text-muted">Ejecutivo de seguimiento</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="team-card p-4 bg-white shadow-sm rounded">
-                                <img src="/Imagenes/team12.jpg" class="rounded-circle mb-3" width="160" height="160"
-                                    alt="Astrid Soberano">
-                                <h4>Astrid Soberano</h4>
-                                <p class="text-muted">Ejecutiva de atención</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Controles con íconos -->
-            <button class="carousel-control-prev custom-control" type="button" data-bs-target="#colaboradoresCarousel"
-                data-bs-slide="prev">
-                <i class="bi bi-chevron-left"></i>
-            </button>
-            <button class="carousel-control-next custom-control" type="button" data-bs-target="#colaboradoresCarousel"
-                data-bs-slide="next">
-                <i class="bi bi-chevron-right"></i>
-            </button>
-
-        </div>
-    </div>
-</section>
-
-
-
-
-
-<!-- Beneficios -->
-
-<section id="beneficios" class="py-5 bg-white text-center" data-aos="fade-up">
-    <div class="container">
-        <h2 class="titulo-principal mb-5" data-aos="fade-down">Cómo podemos apoyarte</h2>
-        <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-right">
-                <i class="bi bi-lightning-charge benefit-icon text-primario"></i>
-                <h4 class="mt-3">Inscripción rápida</h4>
-                <p class="text-muted">Únete al equipo Qualitas en pocos pasos.</p>
-            </div>
-            <div class="col-md-4" data-aos="fade-up">
-                <i class="bi bi-mortarboard benefit-icon text-primario"></i>
-                <h4 class="mt-3">Capacitación constante</h4>
-                <p class="text-muted">Talleres presenciales y virtuales.</p>
-            </div>
-            <div class="col-md-4" data-aos="fade-left">
-                <i class="bi bi-people benefit-icon text-primario"></i>
-                <h4 class="mt-3">Apoyo personalizado</h4>
-                <p class="text-muted">Especialistas que te acompañan en cada etapa.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Blog -->
-<section id="blog" class="py-5 bg-light-gray" data-aos="fade-up">
-    <div class="container">
-        <h2 class="titulo-principal text-center mb-5" data-aos="fade-down">Historias de nuestros agentes</h2>
-        <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-up">
-                <div class="card h-100 shadow-sm">
-                    <img src="/Imagenes/QualiCono.jpg" class="card-img-top" alt="Blog 1">
-                    <div class="card-body">
-                        <span class="badge bg-primario">Historias</span>
-                        <h5 class="card-title mt-2">Rumbo al éxito</h5>
-                        <p class="card-text text-muted">Capacitación constante como pilar de nuestro éxito.</p>
-                        <a href="#" class="btn btn-link text-primario">Leer más →</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up">
-                <div class="card h-100 shadow-sm">
-                    <img src="/Imagenes/QualiCono.jpg" class="card-img-top" alt="Blog 1">
-                    <div class="card-body">
-                        <span class="badge bg-primario">Historias</span>
-                        <h5 class="card-title mt-2">Rumbo al éxito</h5>
-                        <p class="card-text text-muted">Capacitación constante como pilar de nuestro éxito.</p>
-                        <a href="#" class="btn btn-link text-primario">Leer más →</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up">
-                <div class="card h-100 shadow-sm">
-                    <img src="/Imagenes/QualiCono.jpg" class="card-img-top" alt="Blog 1">
-                    <div class="card-body">
-                        <span class="badge bg-primario">Historias</span>
-                        <h5 class="card-title mt-2">Rumbo al éxito</h5>
-                        <p class="card-text text-muted">Capacitación constante como pilar de nuestro éxito.</p>
-                        <a href="#" class="btn btn-link text-primario">Leer más →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<!-- Testimonios -->
-
-<section id="opiniones" class="py-5 bg-white" data-aos="fade-up">
-    <div class="container">
-        <h2 class="titulo-principal mb-5 text-center">Opiniones que generan confianza</h2>
-
-        <div id="opinionesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
-            <div class="carousel-inner">
-
-                <!-- Slide 1 -->
                 <div class="carousel-item active">
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="card shadow-sm h-100 border-0 opinion-card">
-                                <div class="card-body">
-                                    <p class="fst-italic">"Son súper profesionales, por eso estoy con ellos desde hace
-                                        más de 14 años."</p>
-                                    <h6 class="fw-bold mt-3">Ing. Laura Elizares</h6>
-                                </div>
+                    <div class="d-flex colaborador-slide">
+                        <div class="colaborador card-base colaborador-card">
+                            <div class="colaborador-text">
+                                <h5 class="titulo-base">DAA</h5>
+                                <p class="subtitulo-base">Caja</p>
+                            </div>
+                            <div class="colaborador-img">
+                                <img src="/Imagenes/Alexa.png" alt="Kristell Berenice">
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card shadow-sm h-100 border-0 opinion-card">
-                                <div class="card-body">
-                                    <p class="fst-italic">"Excelente atención, siempre resuelven mis dudas con rapidez."
-                                    </p>
-                                    <h6 class="fw-bold mt-3">Carlos Méndez</h6>
-                                </div>
+                        <div class="colaborador card-base colaborador-card">
+                            <div class="colaborador-text">
+                                <h5 class="titulo-base">Yatzil Zarate</h5>
+                                <p class="subtitulo-base">Ejecutiva de emisión</p>
+                            </div>
+                            <div class="colaborador-img">
+                                <img src="/Imagenes/Alexa.png" alt="Yatzil Zarate">
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card shadow-sm h-100 border-0 opinion-card">
-                                <div class="card-body">
-                                    <p class="fst-italic">"Me siento respaldado y seguro, los recomiendo ampliamente."
-                                    </p>
-                                    <h6 class="fw-bold mt-3">María Torres</h6>
-                                </div>
+                        <div class="colaborador card-base colaborador-card">
+                            <div class="colaborador-text">
+                                <h5 class="titulo-base">Lizbet Ramos</h5>
+                                <p class="subtitulo-base">Auxiliar de agente</p>
+                            </div>
+                            <div class="colaborador-img">
+                                <img src="/Imagenes/Alexa.png" alt="Lizbet Ramos">
+                            </div>
+                        </div>
+                        <div class="colaborador card-base colaborador-card">
+                            <div class="colaborador-text">
+                                <h5 class="titulo-base">Alexandra Díaz</h5>
+                                <p class="subtitulo-base">Recepción</p>
+                            </div>
+                            <div class="colaborador-img">
+                                <img src="/Imagenes/Alexa.png" alt="Alexandra Díaz">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Slide 2 -->
-                <div class="carousel-item">
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="card shadow-sm h-100 border-0 opinion-card">
-                                <div class="card-body">
-                                    <p class="fst-italic">"Su equipo siempre está disponible, transmiten confianza."</p>
-                                    <h6 class="fw-bold mt-3">Fernando Ruiz</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card shadow-sm h-100 border-0 opinion-card">
-                                <div class="card-body">
-                                    <p class="fst-italic">"La mejor experiencia que he tenido con una aseguradora."</p>
-                                    <h6 class="fw-bold mt-3">Ana López</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card shadow-sm h-100 border-0 opinion-card">
-                                <div class="card-body">
-                                    <p class="fst-italic">"Siempre cumplen lo que prometen, eso me da tranquilidad."</p>
-                                    <h6 class="fw-bold mt-3">Jorge Salinas</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
+
+            <!-- Flechas -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#colaboradoresCarousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#colaboradoresCarousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Onda inferior -->
+    <div class="custom-shape-divider-bottom">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,60 C600,100 600,20 1200,80 L1200,120 L0,120 Z" fill="#fff"></path>
+        </svg>
+    </div>
+
 </section>
 
-<!-- Ubicación -->
-<section id="ubicacion" class="py-5 bg-light" data-aos="fade-up">
-    <div class="container">
+
+
+<!-- =================== Beneficios =================== -->
+
+<section id="beneficios" class="beneficios-section py-5">
+    <div class="container" data-aos="fade-up">
+        <div class="row mb-4">
+            <div class="col-lg-8 offset-lg-4 text-end">
+                <h2 class="titulo-base titulo-derecha">Te respaldamos para que vendas con confianza.</h2>
+                <p class="subtitulo-base" style="max-width:600px; margin-left:auto;">
+                    Brindamos herramientas ágiles, procesos claros.
+                </p>
+            </div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Seguridad -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card-base beneficio-card">
+                    <div class="icono-wrapper">
+                        <i class="bi bi-shield-check fs-2 icono-primario"></i>
+                    </div>
+                    <h4 class="titulo-base">Seguridad</h4>
+                    <p class="texto-base">
+                        Coberturas confiables que te acompañan en todo momento,
+                        protegiendo lo que más valoras y brindándote tranquilidad
+                        en cada paso de tu negocio.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Rapidez -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card-base beneficio-card">
+                    <div class="icono-wrapper">
+                        <i class="bi bi-clock-history fs-2 icono-primario"></i>
+                    </div>
+                    <h4 class="titulo-base">Rapidez</h4>
+                    <p class="texto-base">
+                        Procesos simplificados para atenderte sin demoras,
+                        optimizando tu tiempo y asegurando que cada trámite
+                        se resuelva de manera ágil y eficiente.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Atención humana -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card-base beneficio-card">
+                    <div class="icono-wrapper">
+                        <i class="bi bi-people fs-2 icono-primario"></i>
+                    </div>
+                    <h4 class="titulo-base">Atención humana</h4>
+                    <p class="texto-base">
+                        Un equipo dispuesto a ayudarte con calidez y profesionalismo,
+                        escuchando tus necesidades y ofreciéndote soluciones claras
+                        y cercanas en todo momento.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- =================== Ubicación =================== -->
+
+<section id="ubicacion" class="py-9 position-relative">
+
+    <!-- Onda superior dentro del contenido -->
+    <div class="custom-shape-divider-top-ubicacion">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
+            <path d="M0,0 C300,100 900,0 1200,100 L1200,0 L0,0 Z" fill="#941B80"></path>
+        </svg>
+    </div>
+
+
+    <div class="container" data-aos="fade-up">
         <div class="row align-items-center">
 
-            <!-- Texto de dirección y horario -->
+            <!-- Texto + Card -->
             <div class="col-md-6 mb-4 mb-md-0">
-                <h2 class="titulo-principal mb-3 text-start">Ubicación</h2>
+                <h2 class="titulo-base titulo-izquierda mb-3">Visítanos</h2>
+                <p class="subtitulo-base">
+                    Estamos para ayudarte en nuestras oficinas principales en Tuxtla Gutiérrez.
+                </p>
 
-                <p class="lead">Visítanos en nuestra oficina en Tuxtla Gutiérrez:</p>
+                <div class="card-base shadow-sm p-4">
+                    <ul class="list-unstyled texto-base mb-0">
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt-fill me-2"></i>
+                            <strong>Dirección:</strong> Costa Rica 4, El Retiro, 29040 Tuxtla Gutiérrez, Chis.
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-telephone-fill me-2"></i>
+                            <strong>Teléfono:</strong> 961 121 2051
+                        </li>
+                        <li>
+                            <i class="bi bi-clock-fill me-2"></i>
+                            <strong>Horario:</strong> Lunes a Viernes, 9:00 - 18:30 · Sábado 10:00 - 14:00
+                        </li>
+                    </ul>
 
-                <div class="direccion d-flex align-items-start mb-4">
-                    <i class="bi bi-geo-alt-fill fs-3 me-3 icono-ubicacion"></i>
-                    <div>
-                        <p class="mb-1 fw-bold">Costa Rica 4, El Retiro</p>
-                        <p class="mb-1">29040 Tuxtla Gutiérrez, Chis.</p>
-                    </div>
-                </div>
-
-                <!-- Horario -->
-                <div class="horario d-flex align-items-start">
-                    <i class="bi bi-clock-fill fs-3 me-3 icono-ubicacion"></i>
-                    <div>
-                        <p class="fw-bold mb-1">Horario de atención</p>
-                        <p class="mb-0">Lunes a Viernes: 9:00 AM – 6:00 PM</p>
-                        <p class="mb-0">Sábado: 9:00 AM – 2:00 PM</p>
-                        <p class="mb-0">Domingo: Cerrado</p>
-                    </div>
+                    <!-- Botón Google Maps -->
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=16.7503055,-93.0830783" target="_blank"
+                        class="btn-maps mt-3">Cómo llegar</a>
                 </div>
             </div>
 
-            <!-- Mapa embebido -->
+            <!-- Mapa -->
             <div class="col-md-6">
-                <div class="ratio ratio-16x9 shadow-sm rounded">
+                <div class="ratio ratio-16x9 rounded-4 shadow">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.123456789!2d-93.123456!3d16.752345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ecd123456789%3A0xabcdef123456789!2sCosta%20Rica%204%2C%20El%20Retiro%2C%2029040%20Tuxtla%20Guti%C3%A9rrez%2C%20Chis.!5e0!3m2!1ses!2smx!4v1695850000000"
-                        style="border:0;" allowfullscreen="" loading="lazy">
-                    </iframe>
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3820.5277451636734!2d-93.0830343889596!3d16.75039928475234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ed27798fc192cf%3A0x79bee2dac199d7cf!2zUXXDoWxpdGFzIENvbXBhw7HDrWEgZGUgU2VndXJvcw!5e0!3m2!1ses-419!2smx!4v1761078350096!5m2!1ses-419!2smx"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
 
         </div>
     </div>
 </section>
-
