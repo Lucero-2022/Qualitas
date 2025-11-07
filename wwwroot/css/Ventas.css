@@ -1,8 +1,8 @@
-/* === Dashboard de Reservas === */
+/* === Dashboard (Reservas y Ventas) === */
 
 /* Contenedor principal */
 .dashboard-container {
- padding: 20px 32px
+  padding: 20px 32px; /* más espacio a los lados */
 }
 
 /* KPIs */
@@ -21,6 +21,20 @@
 .dashboard-container .card h3 {
   font-weight: bold;
   color: var(--color-primario);
+}
+
+/* Colores de íconos y textos */
+
+.text-azul {
+  color: #0096AE !important;
+}
+
+/* Asegurar separación uniforme entre cards */
+.row.g-4 > [class*="col-"] {
+  display: flex;
+}
+.row.g-4 .card {
+  flex: 1 1 auto;
 }
 
 /* Filtros */
@@ -172,5 +186,3 @@ img, canvas, svg {
   padding-bottom: 35px !important; /* espacio extra para las etiquetas */
   overflow: hidden; /* asegura que no se vean recortes feos */
 }
-
-

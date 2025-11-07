@@ -10,8 +10,7 @@ namespace Qualitas.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public int IdAgente { get; set; }
+        [Required] public string IDAgente { get; set; } = string.Empty;
 
         [Required]
         public int Promotor { get; set; }

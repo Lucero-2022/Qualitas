@@ -1,0 +1,128 @@
+@{
+    ViewData["Title"] = "Ventas";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/tables.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Ventas.css" asp-append-version="true" />
+}
+
+@model Qualitas.Models.DTOs.VentaDtos
+
+<div class="dashboard-container">
+
+    <!-- Última actualización -->
+    <p class="ultima-actualizacion text-start">
+        <span class="badge bg-light text-dark shadow-sm px-3 py-2">
+            <i class="bi-clock-history me-2"></i>
+            Última actualización: @Model.FechaUltimaActualizacion.ToString("dd/MM/yyyy")
+        </span>
+    </p>
+
+
+    <!-- KPIs -->
+
+    <div class="row g-4 mb-4">
+        <!-- Cobranza Mes Actual -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-top-morado">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-morado text-uppercase mb-1">Cobranza</h6>
+                        <h3 class="fw-bold text-morado mb-0">
+                            @Model.CobranzaMesActual.ToString("C", new System.Globalization.CultureInfo("es-MX"))
+                        </h3>
+                    </div>
+                    <i class="bi bi-cash-coin icon-kpi text-morado"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acumulado Año Anterior Cobranza -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-top-morado">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-morado text-uppercase mb-1">Acum. 2024</h6>
+                        <h3 class="fw-bold text-morado mb-0">
+                            @Model.CobranzaAnioAnterior.ToString("C", new System.Globalization.CultureInfo("es-MX"))
+                        </h3>
+                    </div>
+                    <i class="bi bi-wallet2 icon-kpi text-morado"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acumulado Año Actual Cobranza -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-top-morado">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-morado text-uppercase mb-1">Acum. 2025</h6>
+                        <h3 class="fw-bold text-morado mb-0">
+                            @Model.CobranzaAnioActual.ToString("C", new System.Globalization.CultureInfo("es-MX"))
+                        </h3>
+                    </div>
+                    <i class="bi bi-wallet-fill icon-kpi text-morado"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Segunda fila -->
+
+    <div class="row g-4 mb-4">
+        <!-- Producción Mes Actual -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-top-azul">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-morado text-uppercase mb-1">Producción</h6>
+                        <h3 class="fw-bold text-morado mb-0">
+                            @Model.ProduccionMesActual.ToString("C", new System.Globalization.CultureInfo("es-MX"))
+                        </h3>
+                    </div>
+                    <i class="bi bi-bar-chart-line icon-kpi text-azul"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acumulado Año Anterior Producción -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-top-azul">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-morado text-uppercase mb-1">Acum. 2024</h6>
+                        <h3 class="fw-bold text-morado mb-0">
+                            @Model.ProduccionAnioAnterior.ToString("C", new System.Globalization.CultureInfo("es-MX"))
+                        </h3>
+                    </div>
+                    <i class="bi bi-graph-up icon-kpi text-azul"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acumulado Año Actual Producción -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100 border-top-azul">
+                <div class="card-body d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="text-morado text-uppercase mb-1">Acum. 2025</h6>
+                        <h3 class="fw-bold text-morado mb-0">
+                            @Model.ProduccionAnioActual.ToString("C", new System.Globalization.CultureInfo("es-MX"))
+                        </h3>
+                    </div>
+                    <i class="bi bi-graph-up-arrow icon-kpi text-azul"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Tabla Parcial -->
+    <div id="tablaVentas">
+        @await Html.PartialAsync("_TablaVentas", Model)
+    </div>
+</div>

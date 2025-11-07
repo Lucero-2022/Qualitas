@@ -167,7 +167,6 @@ namespace Qualitas.Controllers
 
 
         #region Helpers privados
-
         private IQueryable<Reserva> ConstruirQuery(
             int usuarioId,
             string idAgente,
@@ -197,17 +196,24 @@ namespace Qualitas.Controllers
                     query = query.Where(r => r.Fecha <= fechaHasta.Value);
             }
 
+            // 🔒 Filtro por rol
             if (rol != "Admin")
-                query = query.Where(r => r.UsuarioId == usuarioId && r.IDAgente == idAgente);
+            {
+                // Filtra solo por IDAgente, robusto contra espacios o mayúsculas
+                query = query.Where(r => r.IDAgente.Trim().ToUpper() == idAgente.Trim().ToUpper());
+            }
 
+            // 🔍 Filtro por búsqueda
             if (!string.IsNullOrWhiteSpace(busqueda) && int.TryParse(busqueda, out int numero))
                 query = query.Where(r => r.Poliza == numero || r.Agente == numero);
 
+            // 🔍 Filtro por oficina
             if (!string.IsNullOrWhiteSpace(oficina))
                 query = query.Where(r => r.NombreOficina == oficina);
 
             return query;
         }
+
 
         #endregion
 

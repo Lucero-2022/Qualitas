@@ -1,0 +1,86 @@
+@{
+    ViewData["Title"] = "Tabla de Ventas";
+}
+
+@model Qualitas.Models.DTOs.VentaDtos
+
+
+<div class="table-responsive shadow-sm tabla-centrada amplia">
+    <table class="table table-custom tabla-ventas">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Folio</th>
+                <th>Agente</th>
+                <th>Cliente</th>
+                <th>Oficina</th>
+                <th>Entidad</th>
+                <th>Producción</th>
+                <th>Cobranza</th>
+                <th class="text-end">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Ventas != null && Model.Ventas.Count > 0)
+            {
+                foreach (var item in Model.Ventas)
+                {
+                    <tr>
+                        <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Folio</td>
+                        <td>@item.Agente</td>
+                        <td>@item.Cliente</td>
+                        <td>@item.Oficina</td>
+                        <td>@item.Entidad</td>
+                        <td>@item.Produccion.ToString("C")</td>
+                        <td>@item.Cobranza.ToString("C")</td>
+                        <td class="text-end fw-bold">@item.Total.ToString("C")</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" class="text-center text-muted">No hay ventas para mostrar</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const filas = document.querySelectorAll(".tabla-ventas tbody tr");
+
+            filas.forEach(fila => {
+                fila.addEventListener("click", function () {
+                    filas.forEach(f => f.classList.remove("activa"));
+                    this.classList.add("activa");
+                });
+            });
+        });
+    </script>
+}
+
+@if (Model.TotalPaginas > 1)
+{
+    <nav aria-label="Paginación de ventas">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.PaginaActual == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Ventas", new { page = Model.PaginaActual - 1 })">Anterior</a>
+            </li>
+
+            @for (int i = 1; i <= Model.TotalPaginas; i++)
+            {
+                <li class="page-item @(i == Model.PaginaActual ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Ventas", new { page = i })">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(Model.PaginaActual == Model.TotalPaginas ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Ventas", new { page = Model.PaginaActual + 1 })">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+}

@@ -414,58 +414,78 @@
 </section>
 
 
-
 <!-- =================== Ubicación =================== -->
 
 <section id="ubicacion" class="py-9 position-relative">
 
-    <!-- Onda superior dentro del contenido -->
+    <!-- Onda superior -->
+
     <div class="custom-shape-divider-top-ubicacion">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
-            <path d="M0,0 C300,100 900,0 1200,100 L1200,0 L0,0 Z" fill="#941B80"></path>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,120 C600,20 600,100 1200,0 L1200,0 L0,0 Z" fill="#fff"></path>
         </svg>
     </div>
 
-
     <div class="container" data-aos="fade-up">
-        <div class="row align-items-center">
+        <h2 class="titulo-base titulo-izquierda mb-5 text-white">Visítanos</h2>
+        <div class="row g-4">
 
-            <!-- Texto + Card -->
-            <div class="col-md-6 mb-4 mb-md-0">
-                <h2 class="titulo-base titulo-izquierda mb-3">Visítanos</h2>
-                <p class="subtitulo-base">
-                    Estamos para ayudarte en nuestras oficinas principales en Tuxtla Gutiérrez.
-                </p>
+            <!-- Card izquierda: Horarios y contacto -->
 
-                <div class="card-base shadow-sm p-4">
-                    <ul class="list-unstyled texto-base mb-0">
-                        <li class="mb-2">
-                            <i class="bi bi-geo-alt-fill me-2"></i>
-                            <strong>Dirección:</strong> Costa Rica 4, El Retiro, 29040 Tuxtla Gutiérrez, Chis.
-                        </li>
-                        <li class="mb-2">
-                            <i class="bi bi-telephone-fill me-2"></i>
-                            <strong>Teléfono:</strong> 961 121 2051
-                        </li>
-                        <li>
-                            <i class="bi bi-clock-fill me-2"></i>
-                            <strong>Horario:</strong> Lunes a Viernes, 9:00 - 18:30 · Sábado 10:00 - 14:00
-                        </li>
-                    </ul>
+            <div class="col-md-6">
+                <div class="card-base shadow-sm p-4 rounded-4 h-100 text-center transparent-card">
 
-                    <!-- Botón Google Maps -->
+                    <!-- Ícono de reloj arriba -->
+
+                    <i class="bi bi-clock-fill text-white fs-2 mb-3 d-block"></i>
+
+                    <div class="mb-3">
+                        <p class="small text-light mb-1 fw-bold">Lunes a Viernes</p>
+                        <p class="mb-0 text-white">9:00 AM – 18:30 PM</p>
+                    </div>
+                    <div class="mb-3">
+                        <p class="small text-light mb-1 fw-bold">Sábado</p>
+                        <p class="mb-0 text-white">10:00 AM – 14:00 PM</p>
+                    </div>
+                    <div>
+                        <p class="small text-light mb-1 fw-bold">Domingo</p>
+                        <p class="mb-0 text-white">Cerrado</p>
+                    </div>
+
+                    <hr class="info-separator">
+
+                    <p class="mb-2 text-white">
+                        <i class="bi bi-telephone-fill me-2 text-white"></i>
+                        <strong>Teléfono:</strong> 961 121 2051
+                    </p>
+
                     <a href="https://www.google.com/maps/dir/?api=1&destination=16.7503055,-93.0830783" target="_blank"
                         class="btn-maps mt-3">Cómo llegar</a>
                 </div>
             </div>
 
-            <!-- Mapa -->
+            <!-- Card derecha: Mapa y dirección -->
+
             <div class="col-md-6">
-                <div class="ratio ratio-16x9 rounded-4 shadow">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3820.5277451636734!2d-93.0830343889596!3d16.75039928475234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ed27798fc192cf%3A0x79bee2dac199d7cf!2zUXXDoWxpdGFzIENvbXBhw7HDrWEgZGUgU2VndXJvcw!5e0!3m2!1ses-419!2smx!4v1761078350096!5m2!1ses-419!2smx"
-                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="card-base shadow-sm p-4 rounded-4 h-100 transparent-card">
+                    <div class="text-center mb-3">
+                        <i class="bi bi-geo-alt-fill text-white fs-4 d-block"></i>
+                        <p class="small text-light mb-1 fw-bold">
+                            Costa Rica 4, El Retiro, 29040 Tuxtla Gutiérrez, Chis.
+                        </p>
+                    </div>
+
+                    <hr class="info-separator">
+
+                    <div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.123456789!2d-93.0830783!3d16.7503055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ecd9abcdef123%3A0x123456789abcdef!2sQu%C3%A1litas%20Poliforum%20Tuxtla!5e0!3m2!1ses-419!2smx!4v1700000000000"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+
                 </div>
             </div>
 
