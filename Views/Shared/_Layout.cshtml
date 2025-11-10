@@ -21,8 +21,8 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <!-- Navbar -->
 
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand fw-bold text-morado d-flex align-items-center" asp-controller="Home"
@@ -34,6 +34,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Inicio</a></li>
@@ -44,27 +45,61 @@
                             <a class="dropdown-item" asp-controller="Reserva" asp-action="Reservas">Reservas</a>
                             <a class="dropdown-item" asp-controller="Ventas" asp-action="Ventas">Ventas</a>
                             <li><a class="dropdown-item" href="#">Cobranza</a></li>
+                            <li><a class="dropdown-item" href="#">Promotores</a></li>
+                            <li><a class="dropdown-item" href="#">Servicio satelital</a></li>
+                            <li><a class="dropdown-item" href="#">Art 492</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="emisionDropdown" role="button"
-                            data-bs-toggle="dropdown">Oficina</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="agentesDropdown" role="button"
+                            data-bs-toggle="dropdown">QSalud</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Cumpleaños</a></li>
-                            <li><a class="dropdown-item" href="#">Emision</a></li>
-                            <li><a class="dropdown-item" href="#">Contacto Agentes</a></li>
+                            <li><a class="dropdown-item" href="#">Ventas</a></li>
                         </ul>
                     </li>
+
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="oficinaDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Oficina
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="oficinaDropdown">
+                            <li><a class="dropdown-item" href="#">Cumpleaños</a></li>
+
+                            <!-- Submenú Emisión -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Emisión</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Cargar información</a></li>
+                                    <li><a class="dropdown-item" href="#">Reportes</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Agente</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Cargar información</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
+
+
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="blogDropdown" role="button"
-                            data-bs-toggle="dropdown">Blog</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Últimos artículos</a></li>
-                            <li><a class="dropdown-item" href="#">Categorías</a></li>
-                            <li><a class="dropdown-item" href="#">Autores</a></li>
-                        </ul>
-                    </li>
+                            data-bs-toggle="dropdown">Blog
+                        </a>
                 </ul>
+                </li>
+                </ul>
+
             </div>
         </div>
     </nav>

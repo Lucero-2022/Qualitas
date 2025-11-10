@@ -30,6 +30,9 @@ namespace Qualitas.Models.DTOs
 
         // ===== Filtros =====
         public List<string> Oficinas { get; set; } = new();
+        public string OficinaSeleccionada { get; set; } = string.Empty;
+        public List<int> Anios { get; set; } = new();
+        public int AnioSeleccionado { get; set; }
         public List<string> Agentes { get; set; } = new();
 
         // ===== Datos para la tabla =====
@@ -44,6 +47,14 @@ namespace Qualitas.Models.DTOs
         public decimal CobranzaAnioActual { get; set; }
         public decimal ProduccionAnioAnterior { get; set; }
         public decimal ProduccionAnioActual { get; set; }
+
+        // ===== Series para gráficas =====
+        public List<string> Labels { get; set; } = new();
+        public List<decimal> SerieCobranza { get; set; } = new();
+        public List<decimal> SerieProduccion { get; set; } = new();
+
+        // ===== Tabla histórica =====
+        public List<HistoricoRow> Historico { get; set; } = new();
     }
 
     // DTO de cada fila de la tabla de Ventas
@@ -58,5 +69,14 @@ namespace Qualitas.Models.DTOs
         public decimal Produccion { get; set; }
         public decimal Cobranza { get; set; }
         public decimal Total { get; set; }
+    }
+
+    // DTO para la tabla histórica
+    public class HistoricoRow
+    {
+        public string Mes { get; set; } = string.Empty;
+        public decimal ValorAnterior { get; set; }
+        public decimal ValorActual { get; set; }
+        public decimal Incremento { get; set; }
     }
 }

@@ -247,3 +247,28 @@ main {
     font-size: 1.1rem;
   }
 }
+
+/* Submenú dentro de dropdown */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    display: none;       /* oculto por defecto */
+    position: absolute;
+    top: 0;
+    left: 100%;          /* aparece a la derecha */
+    margin-top: -0.25rem;
+    min-width: 180px;    /* ancho mínimo para que no se corte */
+    z-index: 1050;       /* encima de otros elementos */
+}
+
+/* Mostrar solo al pasar el mouse */
+.dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    left: auto;
+    right: 100%;   /* se abre hacia la izquierda */
+}
