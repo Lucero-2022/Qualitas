@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Qualitas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec3cd18f4db9b5d43b012bcb21b7424e4ed3aa00")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a3b997ac50d31f2f4dd79cbcbe4ecdfa072a148")]
 [assembly: System.Reflection.AssemblyProductAttribute("Qualitas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Qualitas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

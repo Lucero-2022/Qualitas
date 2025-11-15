@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Qualitas.Models;
+using Qualitas.Data;
+
 
 namespace Qualitas.Controllers
 {

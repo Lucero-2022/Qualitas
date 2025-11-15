@@ -1,22 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Qualitas.Models;
 
-
-public class AppDbContext : DbContext
+namespace Qualitas.Data
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+    public class AppDbContext : DbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<Usuario> Usuarios { get; set; }
-
-    public DbSet<Cobranza> Cobranzas { get; set; }
-
-    public DbSet<Reserva> Reservas { get; set; }
-
-    public DbSet<Produccion> Producciones { get; set; }
-
-    
-    
-
-    
-
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Cobranza> Cobranzas { get; set; }
+        public DbSet<Reserva> Reservas { get; set; }
+        public DbSet<Produccion> Producciones { get; set; }
+    }
 }

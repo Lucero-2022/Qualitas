@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Qualitas.Models; // Ajusta al namespace real de tu AppDbContext
+using Qualitas.Data; 
 
 var builder = WebApplication.CreateBuilder(args);
 

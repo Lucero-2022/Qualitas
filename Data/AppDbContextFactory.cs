@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Qualitas.Models;
+using Qualitas.Data;
+
 
 
 namespace SistemaCobranzaProduccionReserva.Data

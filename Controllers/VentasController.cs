@@ -1,160 +1,249 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Qualitas.Data;
 using Qualitas.Models;
 using Qualitas.Models.DTOs;
+using System.Globalization;
 
 namespace Qualitas.Controllers
 {
-    public class VentasController : BaseController
+    public class VentasController : Controller
     {
         private readonly AppDbContext _context;
 
-        public VentasController(AppDbContext context) => _context = context;
-
-        public async Task<IActionResult> Ventas(DateTime? fechaDesde, DateTime? fechaHasta, string? oficina = null, int? anioSeleccionado = null, string? periodicidad = "Mensual")
+        public VentasController(AppDbContext context)
         {
-            if (!TryGetSesion(out int usuarioId, out string idAgente, out string rol))
-                return RedirectToAction("Login", "Usuario");
+            _context = context;
+        }
 
-            var hoy = DateTime.Now;
-            var anioActual = anioSeleccionado ?? hoy.Year;
-            var anioAnterior = anioActual - 1;
-            var mesActual = hoy.Month;
+        public async Task<IActionResult> Ventas(string oficina, string periodicidad = "Mensual", bool mostrarProduccion = false, int anioSeleccionado = 0, int page = 1)
+        {
+            var model = new VentaDtos();
 
-            var cobranzas = _context.Cobranzas.AsQueryable();
-            var producciones = _context.Producciones.AsQueryable();
+            // ------------------------------------------------------------------
+            // CORRECCIÓN: si no envían año, usar el año actual
+            // ------------------------------------------------------------------
+            if (anioSeleccionado == 0)
+                anioSeleccionado = DateTime.Now.Year;
 
-            // 🔒 Filtrar por agente si no es Admin
-            if (rol != "Admin")
+            model.AnioSeleccionado = anioSeleccionado;
+
+            // ---------------------------------------------------------
+            // 1. LISTA DE OFICINAS
+            // ---------------------------------------------------------
+            model.Oficinas = await _context.Cobranzas
+                .Select(x => x.NombreOficina)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToListAsync();
+
+            model.OficinaSeleccionada = oficina;
+            model.PeriodicidadSeleccionada = periodicidad;
+            model.MostrarProduccion = mostrarProduccion;
+
+            // ---------------------------------------------------------
+            // 2. FILTRO POR OFICINA
+            // ---------------------------------------------------------
+            IQueryable<Cobranza> cobranzasQuery = _context.Cobranzas;
+            IQueryable<Produccion> produccionesQuery = _context.Producciones;
+
+            if (!string.IsNullOrWhiteSpace(oficina))
             {
-                cobranzas = cobranzas.Where(c => c.IDAgente.Trim().ToUpper() == idAgente.Trim().ToUpper());
-                producciones = producciones.Where(p => p.IDAgente.Trim().ToUpper() == idAgente.Trim().ToUpper());
+                cobranzasQuery = cobranzasQuery.Where(x => x.NombreOficina == oficina);
+                produccionesQuery = produccionesQuery.Where(x => x.NombreOficina == oficina);
             }
 
-            // 🔒 Filtrar por oficina si se selecciona
-            if (!string.IsNullOrEmpty(oficina))
+            // ---------------------------------------------------------
+            // 3. KPI — COBRANZA
+            // ---------------------------------------------------------
+            int mes = DateTime.Now.Month;
+            int año = anioSeleccionado;
+
+            model.CobranzaMesActual = await cobranzasQuery
+                .Where(x => x.FechaPago.Month == mes && x.FechaPago.Year == año)
+                .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+
+            model.CobranzaAnioActual = await cobranzasQuery
+                .Where(x => x.FechaPago.Year == año)
+                .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+
+            model.CobranzaAnioAnterior = await cobranzasQuery
+                .Where(x => x.FechaPago.Year == año - 1)
+                .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+
+            // ---------------------------------------------------------
+            // 4. KPI — PRODUCCIÓN
+            // ---------------------------------------------------------
+            model.ProduccionMesActual = await produccionesQuery
+                .Where(x => x.FechaEmision.Month == mes && x.FechaEmision.Year == año)
+                .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+
+            model.ProduccionAnioActual = await produccionesQuery
+                .Where(x => x.FechaEmision.Year == año)
+                .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+
+            model.ProduccionAnioAnterior = await produccionesQuery
+                .Where(x => x.FechaEmision.Year == año - 1)
+                .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+
+            // ---------------------------------------------------------
+            // 5. GRÁFICAS
+            // ---------------------------------------------------------
+            model.Labels = new List<string>
+    {
+        "Ene","Feb","Mar","Abr","May","Jun",
+        "Jul","Ago","Sep","Oct","Nov","Dic"
+    };
+
+            model.SerieCobranza = new List<decimal>();
+            model.SerieProduccion = new List<decimal>();
+
+            for (int m = 1; m <= 12; m++)
             {
-                cobranzas = cobranzas.Where(c => c.NombreOficina == oficina);
-                producciones = producciones.Where(p => p.NombreOficina == oficina);
+                model.SerieCobranza.Add(
+                    await cobranzasQuery
+                        .Where(x => x.FechaPago.Month == m && x.FechaPago.Year == año)
+                        .SumAsync(x => (decimal?)x.Primaneta) ?? 0);
+
+                model.SerieProduccion.Add(
+                    await produccionesQuery
+                        .Where(x => x.FechaEmision.Month == m && x.FechaEmision.Year == año)
+                        .SumAsync(x => (decimal?)x.Primaneta) ?? 0);
             }
 
-            // ========== KPIs COBRANZA ==========
-            decimal cobranzaMesActual = await cobranzas
-                .Where(c => c.FechaPago.Month == mesActual && c.FechaPago.Year == anioActual)
-                .SumAsync(c => (decimal?)c.Primaneta) ?? 0;
+            // ---------------------------------------------------------
+            // 6. TABLA HISTÓRICA
+            // ---------------------------------------------------------
 
-            decimal cobranzaAnioAnterior = await cobranzas
-                .Where(c => c.FechaPago.Year == anioAnterior)
-                .SumAsync(c => (decimal?)c.Primaneta) ?? 0;
+            model.Historico = new List<HistoricoRow>();
 
-            decimal cobranzaAnioActual = await cobranzas
-                .Where(c => c.FechaPago.Year == anioActual)
-                .SumAsync(c => (decimal?)c.Primaneta) ?? 0;
-
-            // ========== KPIs PRODUCCIÓN ==========
-            decimal produccionMesActual = await producciones
-                .Where(p => p.FechaEmision.Month == mesActual && p.FechaEmision.Year == anioActual)
-                .SumAsync(p => (decimal?)p.Primaneta) ?? 0;
-
-            decimal produccionAnioAnterior = await producciones
-                .Where(p => p.FechaEmision.Year == anioAnterior)
-                .SumAsync(p => (decimal?)p.Primaneta) ?? 0;
-
-            decimal produccionAnioActual = await producciones
-                .Where(p => p.FechaEmision.Year == anioActual)
-                .SumAsync(p => (decimal?)p.Primaneta) ?? 0;
-
-            // Última fecha global
-            DateTime? ultimaFechaCobranza = await cobranzas.MaxAsync(c => (DateTime?)c.FechaPago);
-            DateTime? ultimaFechaProduccion = await producciones.MaxAsync(p => (DateTime?)p.FechaEmision);
-            DateTime? ultimaFechaGlobal = new[] { ultimaFechaCobranza, ultimaFechaProduccion }
-                .Where(f => f.HasValue)
-                .Max();
-
-            // ========== SERIES PARA GRÁFICA ==========
-            var labels = new List<string>();
-            var serieCobranza = new List<decimal>();
-            var serieProduccion = new List<decimal>();
+            CultureInfo ci = CultureInfo.GetCultureInfo("es-MX");
 
             if (periodicidad == "Mensual")
             {
                 for (int m = 1; m <= 12; m++)
                 {
-                    labels.Add(new DateTime(anioActual, m, 1).ToString("MMM"));
-                    serieCobranza.Add(await cobranzas.Where(c => c.FechaPago.Year == anioActual && c.FechaPago.Month == m)
-                                                     .SumAsync(c => (decimal?)c.Primaneta) ?? 0);
-                    serieProduccion.Add(await producciones.Where(p => p.FechaEmision.Year == anioActual && p.FechaEmision.Month == m)
-                                                          .SumAsync(p => (decimal?)p.Primaneta) ?? 0);
+                    decimal a1 = 0, a2 = 0;
+
+                    if (mostrarProduccion)
+                    {
+                        a1 = await produccionesQuery.Where(x => x.FechaEmision.Year == año - 1 && x.FechaEmision.Month == m)
+                                                    .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                        a2 = await produccionesQuery.Where(x => x.FechaEmision.Year == año && x.FechaEmision.Month == m)
+                                                    .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                    }
+                    else
+                    {
+                        a1 = await cobranzasQuery.Where(x => x.FechaPago.Year == año - 1 && x.FechaPago.Month == m)
+                                                 .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                        a2 = await cobranzasQuery.Where(x => x.FechaPago.Year == año && x.FechaPago.Month == m)
+                                                 .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                    }
+
+                    model.Historico.Add(new HistoricoRow
+                    {
+                        Mes = ci.DateTimeFormat.GetMonthName(m), // nombre completo del mes
+                        ValorAnterior = a1,
+                        ValorActual = a2,
+                        Incremento = a2 - a1,
+                        IncrementoPorcentaje = a1 != 0 ? ((a2 - a1) / a1 * 100) : 0
+                    });
                 }
             }
             else if (periodicidad == "Cuatrimestral")
             {
-                var periodos = new[] { (1, 4, "Q1"), (5, 8, "Q2"), (9, 12, "Q3") };
-                foreach (var (ini, fin, nombre) in periodos)
+                int[][] cuatrimestres = new int[][]
                 {
-                    labels.Add(nombre);
-                    serieCobranza.Add(await cobranzas.Where(c => c.FechaPago.Year == anioActual && c.FechaPago.Month >= ini && c.FechaPago.Month <= fin)
-                                                     .SumAsync(c => (decimal?)c.Primaneta) ?? 0);
-                    serieProduccion.Add(await producciones.Where(p => p.FechaEmision.Year == anioActual && p.FechaEmision.Month >= ini && p.FechaEmision.Month <= fin)
-                                                          .SumAsync(p => (decimal?)p.Primaneta) ?? 0);
+        new int[] {1,2,3,4},
+        new int[] {5,6,7,8},
+        new int[] {9,10,11,12}
+                };
+
+                foreach (var grupo in cuatrimestres)
+                {
+                    decimal a1 = 0, a2 = 0;
+                    foreach (var m in grupo)
+                    {
+                        if (mostrarProduccion)
+                        {
+                            a1 += await produccionesQuery.Where(x => x.FechaEmision.Year == año - 1 && x.FechaEmision.Month == m)
+                                                        .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                            a2 += await produccionesQuery.Where(x => x.FechaEmision.Year == año && x.FechaEmision.Month == m)
+                                                        .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                        }
+                        else
+                        {
+                            a1 += await cobranzasQuery.Where(x => x.FechaPago.Year == año - 1 && x.FechaPago.Month == m)
+                                                      .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                            a2 += await cobranzasQuery.Where(x => x.FechaPago.Year == año && x.FechaPago.Month == m)
+                                                      .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                        }
+                    }
+
+                    model.Historico.Add(new HistoricoRow
+                    {
+                        Mes = $"{ci.DateTimeFormat.GetMonthName(grupo.First())} - {ci.DateTimeFormat.GetMonthName(grupo.Last())}",
+                        ValorAnterior = a1,
+                        ValorActual = a2,
+                        Incremento = a2 - a1,
+                        IncrementoPorcentaje = a1 != 0 ? ((a2 - a1) / a1 * 100) : 0
+                    });
                 }
             }
-            else // Anual
+            else if (periodicidad == "Anual")
             {
-                labels.Add(anioActual.ToString());
-                serieCobranza.Add(await cobranzas.Where(c => c.FechaPago.Year == anioActual)
-                                                 .SumAsync(c => (decimal?)c.Primaneta) ?? 0);
-                serieProduccion.Add(await producciones.Where(p => p.FechaEmision.Year == anioActual)
-                                                      .SumAsync(p => (decimal?)p.Primaneta) ?? 0);
-            }
-
-            // ========== TABLA HISTÓRICA ==========
-
-            var historico = new List<HistoricoRow>();
-            for (int m = 1; m <= 12; m++)
-            {
-                var anterior = await cobranzas.Where(c => c.FechaPago.Year == anioAnterior && c.FechaPago.Month == m)
-                                              .SumAsync(c => (decimal?)c.Primaneta) ?? 0;
-                var actual = await cobranzas.Where(c => c.FechaPago.Year == anioActual && c.FechaPago.Month == m)
-                                            .SumAsync(c => (decimal?)c.Primaneta) ?? 0;
-                var prevMesActual = m == 1 ? 0 :
-                    await cobranzas.Where(c => c.FechaPago.Year == anioActual && c.FechaPago.Month == m - 1)
-                                   .SumAsync(c => (decimal?)c.Primaneta) ?? 0;
-
-                historico.Add(new HistoricoRow
+                decimal a1 = 0, a2 = 0;
+                for (int m = 1; m <= 12; m++)
                 {
-                    Mes = new DateTime(anioActual, m, 1).ToString("MMM"),
-                    ValorAnterior = anterior,
-                    ValorActual = actual,
-                    Incremento = actual - prevMesActual
+                    if (mostrarProduccion)
+                    {
+                        a1 += await produccionesQuery.Where(x => x.FechaEmision.Year == año - 1 && x.FechaEmision.Month == m)
+                                                    .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                        a2 += await produccionesQuery.Where(x => x.FechaEmision.Year == año && x.FechaEmision.Month == m)
+                                                    .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                    }
+                    else
+                    {
+                        a1 += await cobranzasQuery.Where(x => x.FechaPago.Year == año - 1 && x.FechaPago.Month == m)
+                                                 .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                        a2 += await cobranzasQuery.Where(x => x.FechaPago.Year == año && x.FechaPago.Month == m)
+                                                 .SumAsync(x => (decimal?)x.Primaneta) ?? 0;
+                    }
+                }
+
+                model.Historico.Add(new HistoricoRow
+                {
+                    Mes = "Año completo",
+                    ValorAnterior = a1,
+                    ValorActual = a2,
+                    Incremento = a2 - a1,
+                    IncrementoPorcentaje = a1 != 0 ? ((a2 - a1) / a1 * 100) : 0
+
                 });
             }
 
-            var model = new VentaDtos
+
+
+            // ---------------------------------------------------------
+            // 7. FECHA DE ACTUALIZACIÓN
+            // ---------------------------------------------------------
+            if (mostrarProduccion)
             {
-                CobranzaMesActual = cobranzaMesActual,
-                ProduccionMesActual = produccionMesActual,
-                CobranzaAnioAnterior = cobranzaAnioAnterior,
-                CobranzaAnioActual = cobranzaAnioActual,
-                ProduccionAnioAnterior = produccionAnioAnterior,
-                ProduccionAnioActual = produccionAnioActual,
-                UltimaActualizacion = ultimaFechaGlobal.HasValue
-                    ? ultimaFechaGlobal.Value.ToString("dd/MM/yyyy")
-                    : "Sin datos",
-                FechaUltimaActualizacion = ultimaFechaGlobal ?? DateTime.MinValue,
-                Labels = labels,
-                SerieCobranza = serieCobranza,
-                SerieProduccion = serieProduccion,
-                Historico = historico,
-                AnioSeleccionado = anioActual,
-                Oficinas = await _context.Cobranzas.Select(c => c.NombreOficina).Distinct().ToListAsync()
-            };
+                model.FechaUltimaActualizacion = await produccionesQuery
+                    .OrderByDescending(x => x.FechaEmision)
+                    .Select(x => x.FechaEmision)
+                    .FirstOrDefaultAsync();
+            }
+            else
+            {
+                model.FechaUltimaActualizacion = await cobranzasQuery
+                    .OrderByDescending(x => x.FechaPago)
+                    .Select(x => x.FechaPago)
+                    .FirstOrDefaultAsync();
+            }
 
             return View(model);
         }
+
     }
 }

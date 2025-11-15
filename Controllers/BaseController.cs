@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Qualitas.Models;
 using Qualitas.Models.DTOs;
+using Qualitas.Data;
+
 
 public class BaseController : Controller
 {

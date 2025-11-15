@@ -3,23 +3,22 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Qualitas.Models;
 
 #nullable disable
 
 namespace Qualitas.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
-    [Migration("20250924021350_CrearTablaProduccion")]
-    partial class CrearTablaProduccion
+    [DbContext(typeof(Qualitas.Data.AppDbContext))]
+
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.9")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -32,11 +31,12 @@ namespace Qualitas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FechaPago")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("FechaPago")
+                        .HasColumnType("date");
 
-                    b.Property<int>("IdAgente")
-                        .HasColumnType("int");
+                    b.Property<string>("IDAgente")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NombreAgente")
                         .IsRequired()
@@ -83,8 +83,9 @@ namespace Qualitas.Migrations
                     b.Property<DateTime>("FechaEmision")
                         .HasColumnType("date");
 
-                    b.Property<int>("IdAgente")
-                        .HasColumnType("int");
+                    b.Property<string>("IDAgente")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NombreAgente")
                         .IsRequired()
